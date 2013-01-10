@@ -81,4 +81,22 @@ Since the symbols are loaded when the libraries (within the shadow module list) 
 
 === Plugins ===
 
-While plugins used to be 
+While plugins used to be built into the emulator they are now built as a separate dynamic library.
+
+The plugins are located in the "DECAF_plugin" directory. Currently only the DalvikInstructionTracer is functional.
+
+To build the DalvikInstructionTracer, you will need to first configure the plugin. Make sure to specify --target=android (e.g. ./configure --target=android --decaf-path=~/scratch/qemu)
+
+Once configured, it can be built using make.
+
+To load the plugin you will need to go back to the qemu prompt and use the "load_plugin" command. Note that tab-completion works so it might be a good idea to use it. 
+
+For example, we can load the plugin using: "load_plugin ../DECAF_plugins/DalvikInstructionTracer/dalvikinstructiontracer.so"
+
+It should return a message stating that it was loaded successfully.
+
+Once loaded another try at the "help" command will reveal additional commands, in particular the "trace_by_pid" command.
+
+You can try this new command (which is provided by the plugin) by first starting "calculator" in the virtual machine and then running "ps" at the qemu prompt to find out the pid and then execute the command: "trace_by_pid 345" where 345 is the PID of calculator2. 
+
+If successful you should see a couple of 0's. Go back to the virtual device and interact with the calculator to see a bunch of log entries.

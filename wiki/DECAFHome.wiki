@@ -8,4 +8,4 @@ The core of DECAF is open sourced under the GPL v2 license while the plugins (in
 = [DECAF] =
 
 = DroidScope =
-== [DroidScope FAQs] ==
+== [DroidScope:FAQs] ==

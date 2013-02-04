@@ -20,5 +20,11 @@ sudo apt-get install binutils-dev
 # For build environments
 sudo apt-get install build-essentials
 }}}
+ # Configure&Make
+{{{
+#go to the root directory of DECAF's source file.
+./configure
+make
+}}}
 
  

@@ -5,7 +5,7 @@ In this way all you (the analyst) have to do is register for different events, s
 
 Following a similar philosophy, DECAF also provides multiple virtual machine introspection facilities so that no matter if the guest machine is Windows or Linux, the analyst will still be able to readily obtain a shadow process list, among other things.
 
-=2. Installation=
+=2. Startup=
       This part is a quick start guide for setting up and running DECAF, the binary analysis platform based on [http://wiki.qemu.org/Main_Page QEMU]. It assumes that you have some familiarity with Linux. The instructions are based on the release of DECAF shown in the [http://code.google.com/p/decaf-platform/source/checkout svn] or the [http://code.google.com/p/decaf-platform/downloads/detail?name=DECAF.tar.gz#makechanges downloads page], running on a Ubuntu 12.04 distribution of Linux. We intermix instructions with explanations about utilities to give an overview of how things work. The goal in this exercise is to take a simple plugin called recon as example, with that, you can list all the symbols, dlls and other information of the system.
 ==2.1 Compile==
  # DECAF is based on QEMU. It's useful to have a vanilla QEMU for testing and image development. Also, you need to install some stuff to compile qemu/decaf.
@@ -68,6 +68,12 @@ load_plugin XXX/callbacktests/callbacktests.so
 do_callbacktests calc.exe
 #now you can start calc.exe in the guest operating system to see the results. 
 }}}
+=Troubleshooting=
+This section describes some problems users have experienced when using DECAF, along with the most common causes of these problems.If you have any other questions,please post them on [http://groups.google.com/group/decaf-platform-discuss Forum]
+ # When start Decaf, the terminal says " vnc server running on 127.0.0.1 7 5900" and there is no running guest os shown up. 
+This is because SDL library is not properly installed. You just need to reinstall SDL.
+ # when compile plugin ,can not find lcrypto
+ you need to make a link to lcrypto.xxx.so to lcrypto.so. If you can not find lcrypto.xxx.so library,just install ssh.
 
 
 

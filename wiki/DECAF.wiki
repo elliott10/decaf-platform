@@ -72,12 +72,9 @@ do_callbacktests calc.exe
 This section describes some problems users have experienced when using DECAF, along with the most common causes of these problems.If you have any other questions,please post them on [http://groups.google.com/group/decaf-platform-discuss Forum]
 
  # *When start Decaf, the terminal says " vnc server running on 127.0.0.1 7 5900" and there is no running guest os shown up.*
-
- # *sdf*
- This is because SDL library is not properly installed. You just need to reinstall SDL.
+  * This is because SDL library is not properly installed. You just need to reinstall SDL.
  # when compile plugin, it can not find lcrypto
-
-    you need to make a link to lcrypto.xxx.so to lcrypto.so. If you can not find lcrypto.xxx.so library,just install ssh.
+  * you need to make a link to lcrypto.xxx.so to lcrypto.so. If you can not find lcrypto.xxx.so library,just install ssh.
 
 
 

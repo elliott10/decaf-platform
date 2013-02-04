@@ -40,10 +40,14 @@ qemu-img convert -f raw ubuntu.img -O qcow2 ubuntu.qcow
 
 ==2.3 Startup the Virtual Machine==
     Now you have get everything ready, the next step is to start the emulator and run the virtual machine.
- # Go to DECAF/trunk/i386­softmmu
+ # Go to DECAF/trunk/i386-­softmmu
  # Run the following command
- # ./qemu­system­i386 ­monitor stdio ­m 512 ­netdev user,id=mynet ­device rtl8139,netdev=mynet “YOUR_IMAGE”
+ # ./qemu-­system­-i386 -­monitor stdio ­-m 512 ­-netdev user,id=mynet ­-device rtl8139,netdev=mynet “YOUR_IMAGE”
  # If you want to use snapshot function, you can use ­snapshot option
+==2.4 compile and load plugins==
+    Decaf provides many interfaces to trace internal events of the guest operating system. You can write your analysis plugins using these interfaces. To learn how to write plugins, [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples] is the best place to start with.
+
+
 
 
 

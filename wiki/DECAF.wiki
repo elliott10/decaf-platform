@@ -20,7 +20,7 @@ Download latest version of zlib (1.2.7 currently) from http://www.zlib.net/ then
 ./configure
 make install
 }}}
-­  * glib
+­ * glib
 run the following command to install the glib
 {{{
 sudo apt­get install libglib2.0­dev

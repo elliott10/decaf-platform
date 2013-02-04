@@ -6,4 +6,9 @@ In this way all you (the analyst) have to do is register for different events, s
 Following a similar philosophy, DECAF also provides multiple virtual machine introspection facilities so that no matter if the guest machine is Windows or Linux, the analyst will still be able to readily obtain a shadow process list, among other things.
 
 =2. Installation=
-      This part is a quick start guide for setting up and running DECAF, the binary analysis platform based on QEMU. It assumes that you have some familiarity with Linux. The instructions are based on the release of DECAF shown in the svn[http://code.google.com/p/decaf-platform/source/checkout svn] or the downloads page[http://code.google.com/p/decaf-platform/downloads/detail?name=DECAF.tar.gz&can=2&q=#makechanges downloads page], running on a Ubuntu 12.04 distribution of Linux. We intermix instructions with explanations about utilities to give an overview of how things work. The goal in this exercise is to take a simple plugin called recon as example, with that, you can list all the symbols, dlls and other information of the system.
+      This part is a quick start guide for setting up and running DECAF, the binary analysis platform based on [http://wiki.qemu.org/Main_Page QEMU]. It assumes that you have some familiarity with Linux. The instructions are based on the release of DECAF shown in the [http://code.google.com/p/decaf-platform/source/checkout svn] or the downloads page[http://code.google.com/p/decaf-platform/downloads/detail?name=DECAF.tar.gz#makechanges downloads page], running on a Ubuntu 12.04 distribution of Linux. We intermix instructions with explanations about utilities to give an overview of how things work. The goal in this exercise is to take a simple plugin called recon as example, with that, you can list all the symbols, dlls and other information of the system.
+==2.1 Compile
+    ===(1)===DECAF is based on QEMU. It's useful to have a vanilla QEMU for testing and image development. Also, you need to install some stuff to compile qemu/decaf.
+        #sudo apt-get install qemu
+        sudo apt-get build-dep qemu
+ 

@@ -45,7 +45,25 @@ qemu-img convert -f raw ubuntu.img -O qcow2 ubuntu.qcow
  # ./qemu-­system­-i386 -­monitor stdio ­-m 512 ­-netdev user,id=mynet ­-device rtl8139,netdev=mynet “YOUR_IMAGE”
  # If you want to use snapshot function, you can use ­snapshot option
 ==2.4 compile and load plugins==
-    Decaf provides many interfaces to trace internal events of the guest operating system. You can write your analysis plugins using these interfaces. To learn how to write plugins, [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples] is the best place to start with.
+    Decaf provides many interfaces to trace internal events of the guest operating system. You can write your analysis plugins using these interfaces. To learn how to write plugins, [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples] is the best place to start with. Download [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples]. Take callbacktests plugin as an example.
+ # compile plugins
+{{{
+cd ./callbacktests
+#set decaf location
+./configure --decaf-path=root directory of decaf
+make
+#start virtual machine, change directory to (root directory of decaf)/i386-softmmu/
+ ./qemu-­system­-i386 -­monitor stdio -­m 512 ­-netdev user,id=mynet -­device rtl8139,netdev=mynet “YOUR_IMAGE”
+#check available cmds
+help
+#load plugins
+load_plugin XXX/callbacktests/callbacktests.so
+#trace a specific program
+do_callbacktests calc.exe
+#now you can start calc.exe in the guest operating system to see the results. 
+}}}
+ # load plugins
+
 
 
 

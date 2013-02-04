@@ -8,24 +8,24 @@ Following a similar philosophy, DECAF also provides multiple virtual machine int
 =2. Installation=
       This part is a quick start guide for setting up and running DECAF, the binary analysis platform based on [http://wiki.qemu.org/Main_Page QEMU]. It assumes that you have some familiarity with Linux. The instructions are based on the release of DECAF shown in the [http://code.google.com/p/decaf-platform/source/checkout svn] or the [http://code.google.com/p/decaf-platform/downloads/detail?name=DECAF.tar.gz#makechanges downloads page], running on a Ubuntu 12.04 distribution of Linux. We intermix instructions with explanations about utilities to give an overview of how things work. The goal in this exercise is to take a simple plugin called recon as example, with that, you can list all the symbols, dlls and other information of the system.
 ==2.1 Compile==
-   #DECAF is based on QEMU. It's useful to have a vanilla QEMU for testing and image development. Also, you need to install some stuff to compile qemu/decaf.
+#DECAF is based on QEMU. It's useful to have a vanilla QEMU for testing and image development. Also, you need to install some stuff to compile qemu/decaf.
 {{{
 sudo apt-get install qemu
 sudo apt-get build-dep qemu
 }}}
-  #Before compile, you need to install the following libraries.
-*zlib
+#Before compile, you need to install the following libraries.
+*zlib*
 Download latest version of zlib (1.2.7 currently) from http://www.zlib.net/ then untar it and run following commands
 {{{
 ./configure
 make install
 }}}
-­*glib
+­ *glib
 run the following command to install the glib
 {{{
 sudo apt­get install libglib2.0­dev
 }}}
-­*g++
+­*g++*
 run the following command to install g++
 {{{
 sudo apt­get install g++ multilib

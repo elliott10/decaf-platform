@@ -50,7 +50,7 @@ qemu-img convert -f raw ubuntu.img -O qcow2 ubuntu.qcow
 }}}
  # If you want to use snapshot function, you can use ­snapshot option
 ==2.4 compile and load plugins==
-    Decaf provides many interfaces to trace internal events of the guest operating system. You can write your analysis plugins using these interfaces. To learn how to write plugins, [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples] is the best place to start with. Download [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples]. Take callbacktests plugin as an example.
+    DECAF provides many interfaces to trace internal events of the guest operating system. You can write your analysis plugins using these interfaces. To learn how to write plugins, [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples] is the best place to start with. Download [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples]. Take callbacktests plugin as an example.
  # compile plugins
 {{{
 cd ./callbacktests

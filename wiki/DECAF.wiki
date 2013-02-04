@@ -52,17 +52,22 @@ cd ./callbacktests
 #set decaf location
 ./configure --decaf-path=root directory of decaf
 make
+}}}
+ # load plugins
+{{{
 #start virtual machine, change directory to (root directory of decaf)/i386-softmmu/
  ./qemu-­system­-i386 -­monitor stdio -­m 512 ­-netdev user,id=mynet -­device rtl8139,netdev=mynet “YOUR_IMAGE”
 #check available cmds
 help
 #load plugins
 load_plugin XXX/callbacktests/callbacktests.so
+}}}
+ # trace program
+{{{
 #trace a specific program
 do_callbacktests calc.exe
 #now you can start calc.exe in the guest operating system to see the results. 
 }}}
- # load plugins
 
 
 

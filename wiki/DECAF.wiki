@@ -14,21 +14,11 @@ sudo apt-get install qemu
 sudo apt-get build-dep qemu
 }}}
  # Before compile, you need to install the following libraries.
- * zlib
-    Download latest version of zlib (1.2.7 currently) from http://www.zlib.net/ then untar it and run following commands
 {{{
-./configure
-make install
+# For the BFD library:
+sudo apt-get install binutils-dev
+# For build environments
+sudo apt-get install build-essentials
 }}}
-
-­ * glib 
-{{{
-sudo apt­get install libglib2.0­dev
-}}}
-­ * g++ 
-{{{
-sudo apt­get install g++ multilib
-}}}
-
 
  

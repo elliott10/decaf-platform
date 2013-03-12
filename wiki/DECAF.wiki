@@ -21,7 +21,7 @@ sudo apt-get build-dep qemu
 # For the BFD library:
 sudo apt-get install binutils-dev
 # For build environments
-sudo apt-get install build-essentials
+sudo apt-get install build-essential
 # For other depedency packages
 sudo apt-get install libsdl1.2-dev zlib1g-dev libglib2.0-dev freeglut3-dev
 }}}

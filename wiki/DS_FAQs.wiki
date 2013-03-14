@@ -36,3 +36,19 @@ pid_t tgid;
 Basically the idea is that if you have the offset of either tasks, mm, pid or tgid, you can figure out what the offsets of the other fields are. And it just happens that there is an exported function "get_task_mm" which given a task_struct returns the mm field. So you can find the offset by looking at the kernel binary that you are trying to use. 
 
 I would like to point out that DECAF parent has an automatic way of doing this as well. 
+
+== When I compile QEMU I get the followin error ==
+
+I followed the instructions on the wiki page except when compiling Qemu.
+      When doing 'make', it showed 
+          ld: cannot find -lgthread-2.0
+      The command that leads to this error is 
+          ./../../prebuilt/linux-x86/toolchain/i686-linux-glibc2.7-4.4.3/bin/i686-linux-gcc -pthread -lgthread-2.0 -lrt -lglib-2.0    -rdynamic  -o objs/emulator   objs/intermediates/emulator/android/main-emulator.o objs/libs/emulator-common.a -pthread -lgthread-2.0 -lrt -lglib-2.0    -rdynamic -m32 -lm -lutil -lrt -lpthread
+
+This problem is likely caused by the "prebuilt" bug. Basically, I copied the QEMU directory (i.e. external/qemu) elsewhere to build the DS and when I did that, the "prebuilt" check in android-configure.sh would just fail nicely and as a result, the system's gcc environment will be used instead.
+
+If the directory was not moved out then, what you will find is that the prebuilt compiler is being used - which causes problems. The telltale sign that the wrong compiler is being used is the prebuilt path as shown above:
+
+./../../prebuilt/linux-x86/toolchain/........
+
+To fix the problem, you should go into the android-configure.sh script and disable the check for prebuilt components (i.e. comment the lines out) or use the --no-prebuilts configuration option.

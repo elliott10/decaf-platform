@@ -65,7 +65,7 @@ load_plugin XXX/callbacktests/callbacktests.so
 do_callbacktests calc.exe
 #now you can start calc.exe in the guest operating system to see the results. 
 }}}
-==6 Troubleshooting==
+ ==5 Troubleshooting==
 This section describes some problems users have experienced when using DECAF, along with the most common causes of these problems.If you have any other questions,please post them on [http://groups.google.com/group/decaf-platform-discuss Forum]
 
  # *After start Decaf, the terminal says " vnc server running on 127.0.0.1 7 5900" and there is no running guest os shown up.*

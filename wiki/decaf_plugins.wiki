@@ -120,7 +120,8 @@ In *my_init()*, we register  *PROCMOD_PROCESSBEGIN_CB* callback and its handler 
   {
     if(strcmp(params->lmm.name,targetname)==0){
   	  DECAF_printf("Process %s you spcecified starts \n",params->lmm.name);
-    target_cr3=params->lmm.cr3;           DECAF_register_callback(DECAF_INSN_BEGIN_CB,&my_insn_begin_callback,NULL)
+    target_cr3=params->lmm.cr3;  
+            DECAF_register_callback(DECAF_INSN_BEGIN_CB,&my_insn_begin_callback,NULL)
     }
   }
 

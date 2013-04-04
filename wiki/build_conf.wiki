@@ -1,1 +1,92 @@
-http://code.google.com/p/decaf-platform/wiki/buid_conf
+
+=1. Introduction=
+
+DECAF(Dynamic Executable Code Analysis Framework) is the successor to the binary analysis techniques developed for TEMU ( dynamic analysis component of [http://bitblaze.cs.berkeley.edu/ BitBlaze] ) as part of [http://lcs.syr.edu/faculty/yin/ Heng Yin]'s work on [http://bitblaze.cs.berkeley.edu/ BitBlaze] project headed up by [http://www.cs.berkeley.edu/~dawnsong/ Dawn Song]. DECAF builds upon TEMU. We appreciate all that worked with us on that project.
+
+DECAF is a multi-target binary analysis platform, but it is easier to think of it as a platform for target-independent binary analysis. The core idea is to abstract away the details of different targets, (e.g. the program counter register in x86 [EIP] contains the virtual address of the current instruction being executed while the same register in ARM [PC] points to the next instruction) so that the analyst can focus on doing important work (analyzing) (e.g. in DECAF there is one function DECAF_getCurPC that returns the address of the instruction being executed and target specific functions to obtain the register values). 
+
+In this way all you (the analyst) have to do is register for different events, such as "block begin" or "instruction begin" or "system call", and we will deal with making the changes to the different targets of the QEMU Processor Emulator so that you get those events at the appropriate times. You can then write target-independent plugins such as API tracer or target-dependent plugins such as X86InstructionTracer and ARMInstructionTracer.
+
+Following a similar philosophy, DECAF also provides multiple virtual machine introspection facilities so that no matter if the guest machine is Windows or Linux, the analyst will still be able to readily obtain a shadow process list, among other things.
+
+=2. Startup=
+      This part is a quick start guide for setting up and running DECAF, the binary analysis platform based on [http://wiki.qemu.org/Main_Page QEMU]. It assumes that you have some familiarity with Linux. The instructions are based on the release of DECAF shown in the [http://code.google.com/p/decaf-platform/source/checkout svn] or the [http://code.google.com/p/decaf-platform/downloads/detail?name=DECAF.tar.gz#makechanges downloads page], running on a Ubuntu 12.04 distribution of Linux. We intermix instructions with explanations about utilities to give an overview of how things work.
+==2.1 Compile==
+ # DECAF is based on QEMU. It's useful to have a vanilla QEMU for testing and image development. Also, you need to install some stuff to compile qemu/decaf.
+{{{
+sudo apt-get install qemu
+sudo apt-get build-dep qemu
+}}}
+ # Before compile, you need to install the following libraries.
+{{{
+# For the BFD library:
+sudo apt-get install binutils-dev
+# For build environments
+sudo apt-get install build-essential
+# For other depedency packages
+sudo apt-get install libsdl1.2-dev zlib1g-dev libglib2.0-dev freeglut3-dev
+}}}
+ # Configure&Make
+{{{
+#go to the root directory of DECAF's source file.
+./configure
+make
+}}}
+==2.2 Configuring a new VM==
+      While QEMU itself is compatible with almost any guest OS that runs on x86 hardware, DECAF requires more knowledge about the OS to bridge the semantic gap and provide information about OS abstractions like processes. DECAF currently supports Windows XP, Windows 7 and Linux, in order to use our tool, user has to have a working qemu image of the operating system. As how to make a qemu image,please see [http://people.gnome.org/~markmc/qcow-image-format.html QCOW2 image Format]. 
+ # If you have a vmdk image(used by vmware),you can convert it to qcow2 format by:
+{{{
+qemu-img convert win2kpro.vmdk -O qcow win2kpro.img
+}}}
+ # if you have a vdi image(used by virtualBox),yo can convert it to qcow2 format by:
+{{{
+VBoxManage clonehd --format RAW img.vdi img.raw
+qemu-img convert -f raw ubuntu.img -O qcow2 ubuntu.qcow
+}}}
+ # Currently, DECAF needs a driver to retrieve guest OS information. You need to install the driver(decaf/shared/guest_driver) into guest OS. In the future version, semantics of guest OS will be totally retrieved outside guest OS.
+==2.3 Startup the Virtual Machine==
+    Now you have get everything ready, the next step is to start the emulator and run the virtual machine.
+ # Go to DECAF/trunk/i386-­softmmu
+ # Run the following command
+{{{
+./qemu-­system­-i386 -­monitor stdio ­-m 512 ­-netdev user,id=mynet ­-device rtl8139,netdev=mynet “YOUR_IMAGE”
+}}}
+ # If you want to use snapshot function, you can use ­snapshot option
+==2.4 compile and load plugins==
+    DECAF provides many interfaces to trace internal events of the guest operating system. You can write your analysis plugins using these interfaces. To learn how to write plugins, [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples] is the best place to start with. Download [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples]. Take callbacktests plugin as an example.
+ # compile plugins
+{{{
+cd ./callbacktests
+#set decaf location
+./configure --decaf-path=root directory of decaf
+make
+}}}
+ # load plugins
+{{{
+#start virtual machine, change directory to (root directory of decaf)/i386-softmmu/
+ ./qemu-­system­-i386 -­monitor stdio -­m 512 ­-netdev user,id=mynet -­device rtl8139,netdev=mynet “YOUR_IMAGE”
+#check available cmds
+help
+#load plugins
+load_plugin XXX/callbacktests/callbacktests.so
+}}}
+ # trace program
+{{{
+#trace a specific program
+do_callbacktests calc.exe
+#now you can start calc.exe in the guest operating system to see the results. 
+}}}
+=Troubleshooting=
+This section describes some problems users have experienced when using DECAF, along with the most common causes of these problems.If you have any other questions,please post them on [http://groups.google.com/group/decaf-platform-discuss Forum]
+
+ # *After start Decaf, the terminal says " vnc server running on 127.0.0.1 7 5900" and there is no running guest os shown up.*
+  * This is because SDL library is not properly installed. You just need to reinstall SDL.
+ # *When compile plugin, it can not find lcrypto.*
+  * you need to make a link to lcrypto.xxx.so to lcrypto.so. If you can not find lcrypto.xxx.so library,just install ssh.
+
+
+
+
+
+
+ 

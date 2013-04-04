@@ -140,7 +140,7 @@ Now you see how to register or unregister ,enable or disable callbacks. We will 
 
   To get a better understanding of these interfaces, a basic understanding of QEMU translation part is needed,please see [http://wiki.qemu.org/Manual qemu] for more details.
 
-  # *Callback types*
+  1 *Callback types*
 
      * *Process callback types*
      it’s defined in /shared/procmod.h:procmod_callback_type_t
@@ -183,7 +183,7 @@ Currently, DECAF’s implementation of network callback is based on NE2000 netwo
 
 
 
-  # *Callback register/unregister function*
+  2 *Callback register/unregister function*
   
     To use above callback, you should firstly register callback. Before you unload your plugin, please make sure this callback is unregistered. Or it may cause unexpected crash.
    To register/unregister process callback types, you should use the following code:
@@ -232,7 +232,7 @@ int DECAF_unregisterOptimizedBlockEndCallback(DECAF_Handle handle);
 
 }}}
 
-  # *API Hook interfaces* 
+  3 *API Hook interfaces* 
 
    DECAF provides interfaces to hook any api in guest os. You can find the detailed description of these interfaces in */DECAF/shared/hookapi.h*
 

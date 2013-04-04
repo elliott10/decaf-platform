@@ -186,13 +186,18 @@ Currently, DECAF’s implementation of network callback is based on NE2000 netwo
   
     To use above callback, you should firstly register callback. Before you unload your plugin, please make sure this callback is unregistered. Or it may cause unexpected crash.
    To register/unregister process callback types, you should use the following code:
+
    {{{
-   DECAF_Handle procmod_register_callback(procmod_callback_type_t cb_type,procmod_callback_func_t cb_func,int *cb_cond);
+DECAF_Handle procmod_register_callback(procmod_callback_type_t cb_type,
+                procmod_callback_func_t cb_func,
+                int *cb_cond
+                );
 
 int procmod_unregister_callback(procmod_callback_type_t cb_type, DECAF_Handle handle);
 }}}
 
    To register/unregister other callback types, you should use the following code:
+
 {{{
 DECAF_Handle DECAF_register_callback(
 		DECAF_callback_type_t cb_type,
@@ -202,6 +207,27 @@ DECAF_Handle DECAF_register_callback(
 
 int DECAF_unregister_callback(DECAF_callback_type_t cb_type, DECAF_Handle handle);
 
+
+}}}
+
+   For block begin/end callback ,you can also use the following for a high performance.
+
+{{{
+DECAF_Handle DECAF_registerOptimizedBlockBeginCallback(
+    DECAF_callback_func_t cb_func,
+    int *cb_cond,
+    gva_t addr,
+    OCB_t type);
+
+DECAF_Handle DECAF_registerOptimizedBlockEndCallback(
+    DECAF_callback_func_t cb_func,
+    int *cb_cond,
+    gva_t from,
+    gva_t to);
+
+int DECAF_unregisterOptimizedBlockBeginCallback(DECAF_Handle handle);
+
+int DECAF_unregisterOptimizedBlockEndCallback(DECAF_Handle handle);
 
 }}}
 

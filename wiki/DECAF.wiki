@@ -11,3 +11,6 @@ Following a similar philosophy, DECAF also provides multiple virtual machine int
 = 2 [http://code.google.com/p/decaf-platform/wiki/build_conf startup]=
 = 3 [https://code.google.com/p/decaf-platform/wiki/decaf_plugins how to write plugins]=
 = 4 [https://code.google.com/p/decaf-platform/wiki/decaf_interfaces interfaces]=
+
+= 5 Trouble shooting=
+If you have any other questions,please post them on [http://groups.google.com/group/decaf-platform-discuss Forum]

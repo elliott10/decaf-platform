@@ -133,5 +133,11 @@ One thing you need to take care of is the third parameter of *procmod_register_c
 Now you see how to register or unregister ,enable or disable callbacks. We will talk about the interfaces exported by DECAF to instrument the system.
 
 ==Interfaces==
-  DECAF provides many interfaces to make instrumentation easier. There are X kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memmory from guest OS. 
-===Callback types===
+  DECAF provides many interfaces to make instrumentation easier. There are two kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memmory from guest OS. 
+===Callback interfaces===
+
+===Utils===
+  As you see in the above code, you registered a *DECAF_INSN_BEGIN_CB* callback, what can you do in your handler *my_insn_begin_callback*? The utils interfaces is supposed to help you get more about guest os.You can find these definitions in *DECAF/shared/DECAF_main.c/h*. Now,We make a short table for these utils.
+||table||cells||
+
+

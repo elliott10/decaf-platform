@@ -1,8 +1,8 @@
 =Tutorials on Developing Plugins=
-==#Introduction==
+==1 Introduction==
 DECAF provides many callback interfaces for developers to write powerful plugins to instrument the execution of the guest operating system.  It invokes the callback at runtime,so you can dynamically enable or disable,register or unregister callbacks. With these callback interfaces, you can retrieve OS-level semantics including process ,system api,keystroke,network,etc, completely  outside  the guest operating system.This manual provides some basic knowledge on developing plugins for DECAF.
 
-==Sample plugin==
+==2 Sample plugin==
 
 The following code is a sample plugin. With this plugin, you can specify a process you wanna trace and print out the process name when the process starts. It's small but complete.
 
@@ -132,12 +132,14 @@ One thing you need to take care of is the third parameter of *procmod_register_c
 
 Now you see how to register or unregister ,enable or disable callbacks. We will talk about the interfaces exported by DECAF to instrument the system.
 
-==Interfaces==
+==3 Interfaces==
   DECAF provides many interfaces to make instrumentation easier. There are two kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memmory from guest OS. 
-===Callback interfaces===
+===3.1 Callback interfaces===
+  *Callback types
+  *
 
-===Utils===
-  As you see in the above code, you registered a *DECAF_INSN_BEGIN_CB* callback, what can you do in your handler *my_insn_begin_callback*? The utils interfaces is supposed to help you get more about guest os.You can find these definitions in *DECAF/shared/DECAF_main.c/h*. Now,We make a short table for these utils.
+===3.2 Utils===
+  As you see in the above code, you registered a *DECAF_INSN_BEGIN_CB* callback, but what can you do in your handler *my_insn_begin_callback*? The utils interfaces is supposed to help you get more about guest os.You can find these definitions in *DECAF/shared/DECAF_main.c/h*. Now,We make a short table for these utils.
 
   ||function name||description||
   ||gpa_t DECAF_get_phys_addr(CPUState* env, gva_t addr)||given a virtual address of guest os, get the corresponded physical address ||

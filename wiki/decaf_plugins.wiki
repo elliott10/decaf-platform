@@ -141,7 +141,7 @@ Now you see how to register or unregister ,enable or disable callbacks. We will 
   To get a better understanding of these interfaces, a basic understanding of QEMU translation part is needed,please see [http://wiki.qemu.org/Manual qemu] for more details.
 
   # *Callback types*
-     * Process callback types
+     * *Process callback types*
      it’s defined in /shared/procmod.h:procmod_callback_type_t
 
      ||PROCMOD_CREATEPROC_CB||  invoked when eprocess structure is created|| 
@@ -151,9 +151,35 @@ Now you see how to register or unregister ,enable or disable callbacks. We will 
      ||PROCMOD_LOADMAINMODULE_CB|| invoked when process starts to run||
      ||PROCMOD_PROCESSBEGIN_CB|| alias of PROCMOD_LOADMAINMODULE_CB||
      
-     *Instruction callback types
+     * *Instruction callback types*
      it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
-This callback instruments guest operating system  at instruction level. 
+This callback instruments guest operating system  at instruction level.
+ 
+   DECAF_BLOCK_BEGIN_CB : invoked at the start of the block.
+ DECAF_BLOCK_END_CB: invoked at the end of the block.
+ DECAF_INSN_BEGIN_CB: invoked before this instruction is executed
+ DECAF_INSN_END_CB:invoked after this instruction is executed 
+
+     * *Mem read/write callback*
+it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
+
+DECAF_MEM_READ_CB :invoked when the memory read operation has been done
+ DECAF_MEM_WRITE_CB:invoked when the memory write operation has been done
+
+     * *Keystroke callback*
+
+it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
+DECAF_KEYSTROKE_CB:invoked when system read a keystroke from ps2 driver.
+  
+     * *EIP check callback*
+ DECAF_EIP_CHECK_CB: for every function call, it will invoked this callback before it jump to target function specified by EIP. This is used to check if this EIP is tainted when you specify some taint source. If it’s tainted, it usually means  exploit happens.
+
+     * *network callback*
+it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
+DECAF_NIC_REC_CB:invoked when network card receives data.
+DECAF_NIC_SEND_CB:invoked when network card sends data.
+Currently, DECAF’s implementation of network callback is based on NE2000 network card. So, when you write plugins using network callback ,please use NE2000 network card when you start DECAF by specifying “-device ne2k_pci,netdev=mynet”.
+
 
 
   # *Callback register/unregister function*

@@ -1,0 +1,97 @@
+=Introduction=
+DECAF provides many callback interfaces for developers to write powerful plugins to instrument the execution of the guest operating system.  It invokes the callback at runtime,so you can dynamically enable or disable,register or unregister callbacks. With these callback interfaces, you can retrieve OS-level semantics including process ,system api,keystroke,network,etc, completely  outside  the guest operating system.This manual provides some basic knowledge on developing plugins for DECAF.
+
+=Sample plugin=
+
+The following code is a sample plugins. With this plugin, you can specify a process you wanna trace and print out the process name when the process starts. It's small but complete.
+
+  #include "DECAF_types.h"
+  #include "DECAF_main.h"
+  #include "DECAF_callback.h"
+  #include "DECAF_callback_common.h"
+  #include "shared/procmod.h"
+  #include "utils/Output.h"
+  #include "DECAF_target.h"
+  
+  //basic stub for plugins
+  static plugin_interface_t my_interface;
+  static DECAF_Handle processbegin_handle = DECAF_NULL_HANDLE;
+  
+  char targetname[511];
+  
+  /*
+  * This callback is invoked when a new process starts in the guest OS.
+  */
+  static void my_loadmainmodule_callback(procmod_Callback_Params* params)
+  {
+    if(strcmp(params->lmm.name,targetname)==0)
+  	  DECAF_printf("Process %s you spcecified starts \n",params->lmm.name);
+  }
+  /*
+   * Handler to implement the command monitor_proc.
+   */
+  
+  void do_monitor_proc(Monitor* mon, const QDict* qdict)
+  {
+  	/*
+  	 * Copy the name of the process to be monitored to targetname.
+  	 */
+    if ((qdict != NULL) && (qdict_haskey(qdict, "procname"))) {
+      strncpy(targetname, qdict_get_str(qdict, "procname"), 512);
+    }
+  targetname[511] = '\0';
+  }
+  
+  static int my_init(void)
+  {
+    DECAF_printf("Hello World\n");
+  
+    //register for process create and process remove events  
+    processbegin_handle = procmod_register_callback(PROCMOD_PROCESSBEGIN_CB, &my_loadmainmodule_callback, NULL);
+    if (processbegin_handle == DECAF_NULL_HANDLE)
+    {
+      DECAF_printf("Could not register for the create or remove proc events\n");  
+    }
+    return (0);
+  }
+  
+  /*
+   * This function is invoked when the plugin is unloaded.
+   */
+  static void my_cleanup(void)
+  {
+    DECAF_printf("Bye world\n");
+    /*
+     * Unregister for the process start and exit callbacks.
+     */
+    if (processbegin_handle != DECAF_NULL_HANDLE) {
+      procmod_unregister_callback(PROCMOD_PROCESSBEGIN_CB, processbegin_handle);  
+      processbegin_handle = DECAF_NULL_HANDLE;
+    }
+    } 
+  /*
+   * Commands supported by the plugin. Included in plugin_cmds.h
+   */
+  static mon_cmd_t my_term_cmds[] = {
+    		{
+  			.name		= "monitor_proc",
+  			.args_type	= "procname:s?",
+  			.mhandler.cmd	= do_monitor_proc,
+  			.params		= "[procname]",
+  			.help		= "Run the tests with program [procname]"
+  		},
+    {NULL, NULL, },
+  };
+  
+  /*
+   * This function registers the plugin_interface with DECAF.
+   * The interface is used to register custom commands, let DECAF know which cleanup function to call upon plugin unload, etc,.
+   */
+  plugin_interface_t* init_plugin(void)
+  {
+    my_interface.mon_cmds = my_term_cmds;
+    my_interface.plugin_cleanup = &my_cleanup;
+    
+    my_init();
+    return (&my_interface);
+  }

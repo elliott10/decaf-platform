@@ -130,7 +130,7 @@ In *my_init()*, we register  *PROCMOD_PROCESSBEGIN_CB* callback and its handler 
 
 One thing you need to take care of is the third parameter of *procmod_register_callback*. If it's NULL, it means this callback will be invoked all the time. If it's a pointer pointing to 1, this callback will be invoked all the time. If it's a pointer pointing to 0, this callback is disabled. Other kind of callback registration function is also following this convention.
 
-Now you see how to register or unregister ,enable or disable callbacks. We will talk about the interfaces exported by DECAF to instrument the system.
+Now you see how to register or unregister ,enable or disable callbacks. As to the interfaces exported by DECAF to instrument the system,please see [https://code.google.com/p/decaf-platform/wiki/decaf_interfaces DECAF interfaces]
 
 ==3 Configure&Makefile==
 

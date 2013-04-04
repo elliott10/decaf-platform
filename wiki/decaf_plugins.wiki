@@ -142,3 +142,8 @@ Now you see how to register or unregister ,enable or disable callbacks. We will 
   ||gpa_t DECAF_get_phys_addr(CPUState* env, gva_t addr)||given a virtual address of guest os, get the corresponded physical address ||
   ||DECAF_errno_t DECAF_memory_rw(CPUState* env, uint32_t addr, void *buf, int len,int is_write)||help||
   ||DECAF_errno_t DECAF_memory_rw_with_cr3(CPUState* env, target_ulong cr3,gva_t addr, void *buf, int len, int is_write)||help|| 
+  ||DECAF_errno_t DECAF_read_mem(CPUState* env, gva_t vaddr, int len, void *buf)||help||
+  ||DECAF_errno_t DECAF_write_mem(CPUState* env, gva_t vaddr, int len, void *buf)||help||
+  ||DECAF_errno_t DECAF_read_mem_with_cr3(CPUState* env, target_ulong cr3,gva_t vaddr, int len, void *buf)||help||
+  ||DECAF_errno_t DECAF_write_mem_with_cr3(CPUState* env, target_ulong cr3,gva_t vaddr, int len, void *buf)||help||
+  

@@ -234,7 +234,7 @@ int DECAF_unregisterOptimizedBlockEndCallback(DECAF_Handle handle);
 
   # *API Hook interfaces* 
 
-   DECAF provides interfaces to hook any api in guest os. You can find the detailed description of these interfaces in /DECAF/shared/hookapi.h
+   DECAF provides interfaces to hook any api in guest os. You can find the detailed description of these interfaces in */DECAF/shared/hookapi.h*
 
    {{{
 uintptr_t hookapi_hook_function_byname(

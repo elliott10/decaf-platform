@@ -135,9 +135,9 @@ Now you see how to register or unregister ,enable or disable callbacks. We will 
 ==3 Interfaces==
   DECAF provides many interfaces to make instrumentation easier. There are two kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memmory from guest OS. 
 ===3.1 Callback interfaces===
-  # Callback types
-  # Callback register/unregister function
-  # Function Hook interfaces 
+  # *Callback types*
+  # *Callback register/unregister function*
+  # *Function Hook interfaces* 
 
 ===3.2 Utils===
   As you see in the above code, you registered a *DECAF_INSN_BEGIN_CB* callback, but what can you do in your handler *my_insn_begin_callback*? The utils interfaces is supposed to help you get more about guest os.You can find these definitions in *DECAF/shared/DECAF_main.c/h*. Now,We make a short table for these utils.

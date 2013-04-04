@@ -133,4 +133,5 @@ One thing you need to take care of is the third parameter of *procmod_register_c
 Now you see how to register or unregister ,enable or disable callbacks. We will talk about the interfaces exported by DECAF to instrument the system.
 
 ==Interfaces==
+  DECAF provides many interfaces to make instrumentation easier. There are X kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memmory from guest OS. 
 ===Callback types===

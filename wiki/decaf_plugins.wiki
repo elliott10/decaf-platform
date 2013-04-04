@@ -1,4 +1,4 @@
-=<div class="center" >Tutorials on Developing Plugins</div>=
+=<div class="center" style="width:auto; margin-left:auto; margin-right:auto;">Tutorials on Developing Plugins</div>=
 ==Introduction==
 DECAF provides many callback interfaces for developers to write powerful plugins to instrument the execution of the guest operating system.  It invokes the callback at runtime,so you can dynamically enable or disable,register or unregister callbacks. With these callback interfaces, you can retrieve OS-level semantics including process ,system api,keystroke,network,etc, completely  outside  the guest operating system.This manual provides some basic knowledge on developing plugins for DECAF.
 

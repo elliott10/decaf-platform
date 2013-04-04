@@ -8,7 +8,7 @@
 
 ===1.1 Callback types===
 
-     1. *Process callback types*
+     1. *Process callback*
      it’s defined in /shared/procmod.h:procmod_callback_type_t
   PROCMOD_CREATEPROC_CB:  invoked when eprocess structure is created 
 
@@ -24,7 +24,8 @@
 
 
      
-     2. *Instruction callback types*
+     2. *Instruction callback *
+
      it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
 This callback instruments guest operating system  at instruction level.
  

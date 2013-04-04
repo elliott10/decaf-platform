@@ -1,1 +1,1 @@
-#[http://code.google.com/p/decaf-platform/wiki/build_conf compile and load plugins]
+  # [http://code.google.com/p/decaf-platform/wiki/build_conf compile and load plugins]

@@ -134,6 +134,7 @@ Now you see how to register or unregister ,enable or disable callbacks. We will 
 
 ==3 Interfaces==
   DECAF provides many interfaces to make instrumentation easier. There are two kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memmory from guest OS. 
+  To get a better understanding of these interfaces, a basic understanding of QEMU translation part is needed,please see [http://wiki.qemu.org/Manual qemu] for more details.
 ===3.1 Callback interfaces===
   # *Callback types*
   # *Callback register/unregister function*

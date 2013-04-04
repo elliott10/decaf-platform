@@ -34,21 +34,21 @@ This callback instruments guest operating system  at instruction level.
  DECAF_INSN_BEGIN_CB: invoked before this instruction is executed
  DECAF_INSN_END_CB:invoked after this instruction is executed 
 
-     3 *Mem read/write callback*
+     3. *Mem read/write callback*
 it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
 
 DECAF_MEM_READ_CB :invoked when the memory read operation has been done
  DECAF_MEM_WRITE_CB:invoked when the memory write operation has been done
 
-     4 *Keystroke callback*
+     4. *Keystroke callback*
 
 it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
 DECAF_KEYSTROKE_CB:invoked when system read a keystroke from ps2 driver.
   
-     5 *EIP check callback*
+     5. *EIP check callback*
  DECAF_EIP_CHECK_CB: for every function call, it will invoked this callback before it jump to target function specified by EIP. This is used to check if this EIP is tainted when you specify some taint source. If it’s tainted, it usually means  exploit happens.
 
-     6 *network callback*
+     6. *network callback*
 it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
 DECAF_NIC_REC_CB:invoked when network card receives data.
 DECAF_NIC_SEND_CB:invoked when network card sends data.

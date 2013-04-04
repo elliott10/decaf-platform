@@ -121,11 +121,13 @@ In *my_init()*, we register  *PROCMOD_PROCESSBEGIN_CB* callback and its handler 
     if(strcmp(params->lmm.name,targetname)==0){
   	  DECAF_printf("Process %s you spcecified starts \n",params->lmm.name);
     target_cr3=params->lmm.cr3;  
-   DECAF_register_callback(DECAF_INSN_BEGIN_CB,&my_insn_begin_callback,NULL)
+     DECAF_register_callback(DECAF_INSN_BEGIN_CB,&my_insn_begin_callback,NULL)
     }
   }
 
 
 }}}
 
-One thing you need to take care of is the third parameter of *procmod_register_callback*. If it's NULL, it means this callback will be invoked all the time. If it's a pointer pointed to 1, this callback will be invoked all the time. If ti's a pointer pointed to 0, this callback is disabled. Other kind of callback registration function is also following this convention.
+One thing you need to take care of is the third parameter of *procmod_register_callback*. If it's NULL, it means this callback will be invoked all the time. If it's a pointer pointing to 1, this callback will be invoked all the time. If it's a pointer pointing to 0, this callback is disabled. Other kind of callback registration function is also following this convention.
+
+Now you see how to register or unregister ,enable or disable callbacks. We will talk about the interfaces exported by DECAF to instrument the system.

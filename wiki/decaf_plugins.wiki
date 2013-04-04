@@ -6,7 +6,7 @@ DECAF provides many callback interfaces for developers to write powerful plugins
 
 The following code is a sample plugins. With this plugin, you can specify a process you wanna trace and print out the process name when the process starts. It's small but complete.
 {{{
-  #include "DECAF_types.h"
+*  #include "DECAF_types.h"
   #include "DECAF_main.h"
   #include "DECAF_callback.h"
   #include "DECAF_callback_common.h"

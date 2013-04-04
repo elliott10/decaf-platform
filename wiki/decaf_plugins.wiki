@@ -5,7 +5,8 @@ DECAF provides many callback interfaces for developers to write powerful plugins
 ==Sample plugin==
 
 The following code is a sample plugin. With this plugin, you can specify a process you wanna trace and print out the process name when the process starts. It's small but complete.
-After DECAF load the plugin, it will call *init_plugin(void)* first. You can do many things in this function. But the most useful thing is to specify the   
+
+After DECAF loads the plugin, it will call *init_plugin(void)* first. You can use *plugin_interface_t*(DECAF_main.h) to define the behaviors of plugins. But the most important thing is to specify the *plugin_cleanup* interface.We usually free the resources allocated for this plugin using this interface.If we do not do this or do not free resources completely, DECAF may crash.Another thing you can do using *plugin_interface_t* is to define your own command for DECAF. So you can interact with your plugin at runtime.      
  
 {{{
   #include "DECAF_types.h"
@@ -99,3 +100,5 @@ After DECAF load the plugin, it will call *init_plugin(void)* first. You can do 
     return (&my_interface);
   }
 }}}
+
+Now,you know the *plugin_cleanup* and *mon_cmds*. Let's talk about the sample plugin code. As you see, in the function *inint_plugin(void)*, we define our own command using *my_term_cmds*. In *my_term_cmds*, we specify the command name,command handler,command parameters and help message. You define whatever you like following this convention.

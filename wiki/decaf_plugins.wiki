@@ -133,10 +133,23 @@ One thing you need to take care of is the third parameter of *procmod_register_c
 Now you see how to register or unregister ,enable or disable callbacks. We will talk about the interfaces exported by DECAF to instrument the system.
 
 ==3 Interfaces==
+  
   DECAF provides many interfaces to make instrumentation easier. There are two kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memmory from guest OS. 
-  To get a better understanding of these interfaces, a basic understanding of QEMU translation part is needed,please see [http://wiki.qemu.org/Manual qemu] for more details.
+
 ===3.1 Callback interfaces===
+
+  To get a better understanding of these interfaces, a basic understanding of QEMU translation part is needed,please see [http://wiki.qemu.org/Manual qemu] for more details.
+
   # *Callback types*
+     * Process callback types
+     it’s defined in /shared/procmod.h:procmod_callback_type_t
+     ||PROCMOD_CREATEPROC_CB||  invoked when eprocess structure is created|| 
+     ||PROCMOD_REMOVEPROC_CB|| invoked when delete the process||
+     ||PROCMOD_PROCESSEND_CB|| alias of PROCMOD_REMOVEPROC_CB||
+     ||PROCMOD_LOADMODULE_CB|| invoked when dll or driver is loaded||
+     ||PROCMOD_LOADMAINMODULE_CB|| invoked when process starts to run||
+     ||PROCMOD_PROCESSBEGIN_CB|| alias of PROCMOD_LOADMAINMODULE_CB||
+
   # *Callback register/unregister function*
   # *Function Hook interfaces* 
 

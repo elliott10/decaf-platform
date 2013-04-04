@@ -10,13 +10,14 @@
 
      1. *Process callback types*
      it’s defined in /shared/procmod.h:procmod_callback_type_t
+  PROCMOD_CREATEPROC_CB:  invoked when eprocess structure is created 
+  PROCMOD_REMOVEPROC_CB:  invoked when delete the process
+  PROCMOD_PROCESSEND_CB : alias of PROCMOD_REMOVEPROC_CB
+  PROCMOD_LOADMODULE_CB: invoked when dll or driver is loaded
+  PROCMOD_LOADMAINMODULE_CB: invoked when process starts to run
+  PROCMOD_PROCESSBEGIN_CB: alias of PROCMOD_LOADMAINMODULE_CB
 
-     ||PROCMOD_CREATEPROC_CB||  invoked when eprocess structure is created|| 
-     ||PROCMOD_REMOVEPROC_CB|| invoked when delete the process||
-     ||PROCMOD_PROCESSEND_CB|| alias of PROCMOD_REMOVEPROC_CB||
-     ||PROCMOD_LOADMODULE_CB|| invoked when dll or driver is loaded||
-     ||PROCMOD_LOADMAINMODULE_CB|| invoked when process starts to run||
-     ||PROCMOD_PROCESSBEGIN_CB|| alias of PROCMOD_LOADMAINMODULE_CB||
+
      
      2. *Instruction callback types*
      it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t

@@ -138,6 +138,10 @@ For malware analysis, api trace is essential to understand the behavior of malwa
 
 Now, we modify the above sample code to hook api NtCreateFile and retrieve it's parameter from the stack.First we register the api hook by *hookapi_hook_function_byname* when target process starts(when *my_loadmainmodule_callback* is called). In the following code, NtCreateFile_call will be invoked when guest os call NtCreateFile. For the parameters marked "IN", you can retrieve them from stack at this place.But for the "OUT" parameters, it's filled when NtCreateFile returns. In order to deal with this case, we hook the api return by using *hookapi_hook_return*. When NtCreateFile_call is invoked, the return address of NtCreateFile is stored on [EBP]. We should pass this return value to *hookapi_hook_return* function. Also, you can pass data to NtCreateFile_ret using 3th and 4th parameters of *hookapi_hook_return*.
 
+In NtCreateFile_ret , we retrieve FileHandle form the stack. At this return point, EBP stores the address of first parameters FileHandle. We can use DECAF_read_mem to read this FileHandle from [EBP]. This is what we do in the following code. You can find more complex parameter retrieving  function in *hookapitests/custom_handlers.c*. But the basic idea is same. 
+
+The key to retrieve parameters correctly is to understand "*address*" correctly. There are there kind of address--guest os's virtual address, guest os's physical address and host os's virtual address. The value of EBP is the guest os's virtual address. DECAF_read_mem get the content of specified virtual address stored in guest OS memory. Sometimes, the parameters of API is a pointer, you need read this pointer's value first, and then read the memory pointed to by this pointer using DECAF_read_mem. Another thing you need to take care of is the character set problem. Windows uses Unicode string internally. If you get some unreadable code, you may need to convert it to readable character set. Keep that in mind!!
+ 
 
 {{{
 
@@ -147,6 +151,8 @@ typedef struct {
 	uint32_t call_stack[12]; //paramters and return address
 	DECAF_Handle hook_handle;
 } NtCreateFile_hook_context_t;
+
+/*
 NTSTATUS NtCreateFile(
   _Out_     PHANDLE FileHandle,
   _In_      ACCESS_MASK DesiredAccess,
@@ -160,6 +166,7 @@ NTSTATUS NtCreateFile(
   _In_      PVOID EaBuffer,
   _In_      ULONG EaLength
 );
+*/
 static void NtCreateFile_ret(void *param)
 {
 	NtCreateFile_hook_context_t *ctx = (NtCreateFile_hook_context_t *)param;

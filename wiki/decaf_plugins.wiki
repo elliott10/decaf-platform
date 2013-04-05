@@ -132,6 +132,49 @@ One thing you need to take care of is the third parameter of *procmod_register_c
 
 Now you see how to register or unregister ,enable or disable callbacks. As to the interfaces exported by DECAF to instrument the system,please see [https://code.google.com/p/decaf-platform/wiki/decaf_interfaces DECAF interfaces]
 
-==3. Configure&Makefile==
+===3 Hook api ===
+
+For malware analysis, api trace is essential to understand the behavior of malware. Traditional analysis tool implements api trace by hooking api at different levels which is easy to bypass especially for Rootkit. DECAF can trace api more reliably  outside VM. You can hook any api in your plugins or just hook some EIP.In the plugin [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz  hookapitest], it shows how to hook a api and how to retrieve api parameters.
+
+Now, we modify the above sample code to hook api NtCreateFile and retrieve it's parameter from the stack.First we register the api hook by *hookapi_hook_function_byname* when target process starts(when *my_loadmainmodule_callback* is called.
+
+
+{{{
+
+  DECAF_handle ntcreatefile_handle;
+
+static void NtCreateFile_call(void *opaque)
+{
+	DECAF_printf("NtCreateFile entry\n");
+	NtCreateFile_hook_context_t *ctx = (NtCreateFile_hook_context_t*)
+			malloc(sizeof(NtCreateFile_hook_context_t));
+	if(!ctx) //run out of memory
+		return;
+
+	DECAF_read_mem(NULL, cpu_single_env->regs[R_ESP], 12*4, ctx->call_stack);
+	ctx->hook_handle = hookapi_hook_return(ctx->call_stack[0],
+			NtCreateFile_ret, ctx, sizeof(*ctx));
+}
+
+  static void my_loadmainmodule_callback(procmod_Callback_Params* params)
+  {
+    if(strcmp(params->lmm.name,targetname)==0){
+  	  DECAF_printf("Process %s you spcecified starts \n",params->lmm.name);
+    target_cr3=params->lmm.cr3;  
+     
+   ntcreatefile_handle = hookapi_hook_function_byname(
+			"ntdll.dll", "NtCreateFile", 1, targetcr3, NtCreateFile_call, NULL, 0);
+    }
+  }
+
+
+
+
+}}}
+
+
+
+
+==4. Configure&Makefile==
 
 We suggest you use configure/Makefile in the sample plugin we published in [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz decaf_plugins.tar.gz] as a template to write your own configure/makefile. 

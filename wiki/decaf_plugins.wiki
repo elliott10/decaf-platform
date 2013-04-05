@@ -136,7 +136,7 @@ Now you see how to register or unregister ,enable or disable callbacks. As to th
 
 For malware analysis, api trace is essential to understand the behavior of malware. Traditional analysis tool implements api trace by hooking api at different levels which is easy to bypass especially for Rootkit. DECAF can trace api more reliably  outside VM. You can hook any api in your plugins or just hook some EIP.In the plugin [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz  hookapitest], it shows how to hook a api and how to retrieve api parameters.
 
-Now, we modify the above sample code to hook api NtCreateFile and retrieve it's parameter from the stack.First we register the api hook by *hookapi_hook_function_byname* when target process starts(when *my_loadmainmodule_callback* is called.
+Now, we modify the above sample code to hook api NtCreateFile and retrieve it's parameter from the stack.First we register the api hook by *hookapi_hook_function_byname* when target process starts(when *my_loadmainmodule_callback* is called).
 
 
 {{{
@@ -162,6 +162,19 @@ static void NtCreateFile_call(void *opaque)
   	  DECAF_printf("Process %s you spcecified starts \n",params->lmm.name);
     target_cr3=params->lmm.cr3;  
      
+  
+/// @ingroup hookapi
+/// install a hook at the function entry by specifying module name and function name
+/// @param mod module name that this function is located in
+/// @param func function name
+/// @param is_global flag specifies if this hook should be invoked globally or only in certain execution context (when should_monitor is true)
+/// @param cr3 the memory space that this hook is installed. 0 for all memory spaces.
+/// @param fnhook address of function hook
+/// @param opaque address of an opaque structure provided by caller (has to be globally allocated)
+//  @param sizeof_opaque size of the opaque structure (if opaque is an integer, not a pointer to a structure, sizeof_opaque must be zero) 
+/// @return a handle that uniquely identifies this hook
+/// Note that the handle that is returned, might not actually be active yet - you can check the eip value of the handle to find out
+/// the default value is 0.
    ntcreatefile_handle = hookapi_hook_function_byname(
 			"ntdll.dll", "NtCreateFile", 1, targetcr3, NtCreateFile_call, NULL, 0);
     }

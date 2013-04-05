@@ -136,12 +136,42 @@ Now you see how to register or unregister ,enable or disable callbacks. As to th
 
 For malware analysis, api trace is essential to understand the behavior of malware. Traditional analysis tool implements api trace by hooking api at different levels which is easy to bypass especially for Rootkit. DECAF can trace api more reliably  outside VM. You can hook any api in your plugins or just hook some EIP.In the plugin [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz  hookapitest], it shows how to hook a api and how to retrieve api parameters.
 
-Now, we modify the above sample code to hook api NtCreateFile and retrieve it's parameter from the stack.First we register the api hook by *hookapi_hook_function_byname* when target process starts(when *my_loadmainmodule_callback* is called).
+Now, we modify the above sample code to hook api NtCreateFile and retrieve it's parameter from the stack.First we register the api hook by *hookapi_hook_function_byname* when target process starts(when *my_loadmainmodule_callback* is called). In the following code, NtCreateFile_call will be invoked when guest os call NtCreateFile. For the parameters marked "IN", you can retrieve them from stack at this place.But for the "OUT" parameters, it's filled when NtCreateFile returns. In order to deal with this case, we hook the api return by using *hookapi_hook_return*. When NtCreateFile_call is invoked, the return address of NtCreateFile is stored on [EBP]. We should pass this return value to *hookapi_hook_return* function. Also, you can pass data to NtCreateFile_ret using 3th and 4th parameters of *hookapi_hook_return*.
 
 
 {{{
 
   DECAF_handle ntcreatefile_handle;
+
+typedef struct {
+	uint32_t call_stack[12]; //paramters and return address
+	DECAF_Handle hook_handle;
+} NtCreateFile_hook_context_t;
+NTSTATUS NtCreateFile(
+  _Out_     PHANDLE FileHandle,
+  _In_      ACCESS_MASK DesiredAccess,
+  _In_      POBJECT_ATTRIBUTES ObjectAttributes,
+  _Out_     PIO_STATUS_BLOCK IoStatusBlock,
+  _In_opt_  PLARGE_INTEGER AllocationSize,
+  _In_      ULONG FileAttributes,
+  _In_      ULONG ShareAccess,
+  _In_      ULONG CreateDisposition,
+  _In_      ULONG CreateOptions,
+  _In_      PVOID EaBuffer,
+  _In_      ULONG EaLength
+);
+static void NtCreateFile_ret(void *param)
+{
+	NtCreateFile_hook_context_t *ctx = (NtCreateFile_hook_context_t *)param;
+	DECAF_printf("NtCreateFile exit:");
+
+	hookapi_remove_hook(ctx->hook_handle);
+	uint32_t out_handle;
+
+	DECAF_read_mem(NULL, ctx->call_stack[1], 4, &out_handle);
+	DECAF_printf("out_handle=%08x\n", out_handle);
+	free(ctx);
+}
 
 static void NtCreateFile_call(void *opaque)
 {
@@ -176,7 +206,7 @@ static void NtCreateFile_call(void *opaque)
 /// Note that the handle that is returned, might not actually be active yet - you can check the eip value of the handle to find out
 /// the default value is 0.
    ntcreatefile_handle = hookapi_hook_function_byname(
-			"ntdll.dll", "NtCreateFile", 1, targetcr3, NtCreateFile_call, NULL, 0);
+			"ntdll.dll", "NtCreateFile", 1, target_cr3, NtCreateFile_call, NULL, 0);
     }
   }
 

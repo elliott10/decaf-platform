@@ -17,6 +17,7 @@ Since the original paper, we have been porting DS to run on top of the DECAF bin
 NOTE: DECAF is based off a newer version of QEMU, however the core changes to translate.c, monitor.c and etc. are the same. 
 
 == DroidScope Getting Started ===
+We provides [http://sycurelab.ecs.syr.edu/image/DroidScope.tar.gz a Virtual Box image] which has DroidScope installed. You can use that directly for convenience. If you wanna compile it, please see the following instructions.
 
 The current version of DS is built for Android Gingerbread. Since we mainly deal with the 32-bit ARM architecture and we include some files from the Android source code as part of DS we require that the host machine be a 32-bit machine. DECAF does not have this limitation.
 

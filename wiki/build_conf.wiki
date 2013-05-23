@@ -56,7 +56,6 @@ DECAF's previous version needs a guest driver to retrieve guest OS information. 
 #generate symbol file
 perl GenSymbols.sh IMAGE_PATH
 }}}
-
  # Copy symbol file to the current directory(presumably DECAF/i386-softmmu).
 
 

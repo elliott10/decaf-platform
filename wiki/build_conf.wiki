@@ -14,6 +14,12 @@ sudo apt-get install binutils-dev
 }}}
  # Configure&Make
 DECAF has two basic settings. One is TCG tainting, another one is VMI. You can enable/disable at the configuration step. By default, VMI is enabled and TCG tainting is disabled. 
+ ## configure VMI 
+DECAF's previous version needs a guest driver to retrieve guest OS information. But with VMI, DECAF doesn't need this driver again. To get VMI working, you need some manual setting for now.
+ 
+
+
+
 {{{
 #go to the root directory of DECAF's source file.
 ./configure

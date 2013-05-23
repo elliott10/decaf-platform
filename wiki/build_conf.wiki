@@ -32,7 +32,21 @@ Disable VMI
 ./configure --disable-vmi
 make
 }}}
- ==2. Configure VMI==
+ ==2. Create a new VM==
+      While QEMU itself is compatible with almost any guest OS that runs on x86 hardware, DECAF requires more knowledge about the OS to bridge the semantic gap and provide information about OS abstractions like processes. DECAF currently supports Windows XP, Windows 7 and Linux, in order to use our tool, user has to have a working qemu image of the operating system. As how to make a qemu image,please see [http://people.gnome.org/~markmc/qcow-image-format.html QCOW2 image Format]. 
+ # If you have a vmdk image(used by vmware),you can convert it to qcow2 format by:
+{{{
+qemu-img convert win2kpro.vmdk -O qcow win2kpro.img
+}}}
+ # if you have a vdi image(used by virtualBox),yo can convert it to qcow2 format by:
+{{{
+VBoxManage clonehd --format RAW img.vdi img.raw
+qemu-img convert -f raw ubuntu.img -O qcow2 ubuntu.qcow
+}}}
+ # If you don't enable VMI, you need to install the driver(decaf/shared/guest_driver) into guest OS and skip step 3.
+
+
+ ==3. Configure VMI==
 
 DECAF's previous version needs a guest driver to retrieve guest OS information. But with VMI, DECAF gets rid of this driver. To get VMI working, you need some manual settings for now.
 
@@ -45,18 +59,6 @@ perl GenSymbols.sh IMAGE_PATH
 
  # Copy symbol file to the current directory(presumably DECAF/i386-softmmu).
 
- ==3. Configuring a new VM==
-      While QEMU itself is compatible with almost any guest OS that runs on x86 hardware, DECAF requires more knowledge about the OS to bridge the semantic gap and provide information about OS abstractions like processes. DECAF currently supports Windows XP, Windows 7 and Linux, in order to use our tool, user has to have a working qemu image of the operating system. As how to make a qemu image,please see [http://people.gnome.org/~markmc/qcow-image-format.html QCOW2 image Format]. 
- # If you have a vmdk image(used by vmware),you can convert it to qcow2 format by:
-{{{
-qemu-img convert win2kpro.vmdk -O qcow win2kpro.img
-}}}
- # if you have a vdi image(used by virtualBox),yo can convert it to qcow2 format by:
-{{{
-VBoxManage clonehd --format RAW img.vdi img.raw
-qemu-img convert -f raw ubuntu.img -O qcow2 ubuntu.qcow
-}}}
- # If you don't enable VMI, you need to install the driver(decaf/shared/guest_driver) into guest OS. 
 
  ==4. Startup the Virtual Machine==
     Now you have get everything ready, the next step is to start the emulator and run the virtual machine.

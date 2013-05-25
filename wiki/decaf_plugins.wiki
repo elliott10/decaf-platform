@@ -237,10 +237,10 @@ Using the above apis exported by DECAF, you can taint a memory or check the tain
 cpu_single_env->taint_regs[R_EAX] = taint_value;//bitwise tainting.
 
 }}}
-DECAF also supports keystroke and network tainting. We include a [ https://decaf-platform.googlecode.com/files/decaf_plugins1.1.tar.gz keystroke tainting sample] in the plugins download. It’s similar to taint network input/output. In the future, we will provide other tainting interface for other hardwares(e.g., disk).
+DECAF also supports keystroke and network tainting. We include a [http://decaf-platform.googlecode.com/files/decaf_plugins1.1.tar.gz keystroke tainting sample] in the plugins download. It’s similar to taint network input/output. In the future, we will provide other tainting interface for other hardwares(e.g., disk).
 
 
 
 ==5. Configure&Makefile==
 
-We suggest you use configure/Makefile in the sample plugin we published in [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz decaf_plugins.tar.gz] as a template to write your own configure/makefile. 
+We suggest you use configure/Makefile in the sample plugin we published in [http://decaf-platform.googlecode.com/files/decaf_plugins1.1.tar.gz decaf_plugins.tar.gz] as a template to write your own configure/makefile. 

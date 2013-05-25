@@ -223,6 +223,21 @@ static void NtCreateFile_call(void *opaque)
 
 }}}
 
+==4.Tainting==
+DECAF has tainting functionality built in. It’s implemented by inserting taint propagation opcodes into the stream of Tiny Code Generator (TCG) opcodes being executed by the emulator. Because of this, taint propagation within DECAF incurs a much smaller runtime performance penalty than other whole-system dynamic analysis platforms. It’s very easy to develop data flow tracking tools using this functionality.
+
+To enable tainting, you should compile DECAF with “--enable-tcg-taint”. After you start DECAF, the tainting is enabled by default. You can disable it to clear the taint data using command “disable-taint”. Also, you can check the taint information using command “tainted_bytes”.  One thing you can configure tainting is the pointer tainting. The command “taint_pointers on/off on/off” turns on/off the pointers read/store tainting.
+{{{
+taintcheck_check_virtmem(uint32_t vaddr, uint32_t size, uint8_t * taint)
+taintcheck_register_check(int regid,int offset,int size,CPUState *env)
+taint_mem(uint32_t addr,int size,uint8_t *taint)
+}}}
+Using the above apis exported by DECAF, you can taint a memory or check the taint status of specific memoery or register. To taint a register, just directly set the shadow register taint_regs defined in the struct CPUState. For example, to taint eax, we can using the following statement.
+{{{
+cpu_single_env->taint_regs[R_EAX] = taint_value;//bitwise tainting.
+
+}}}
+DECAF also supports keystroke and network tainting. We include a keystroke tainting sample in the plugins download. It’s similar to taint network input/output. In the future, we will provide other tainting interface for other hardwares(e.g., disk).
 
 
 

@@ -45,21 +45,7 @@ qemu-img convert -f raw ubuntu.img -O qcow2 ubuntu.qcow
 }}}
  # If you don't enable VMI, you need to install the driver(decaf/shared/guest_driver) into guest OS and skip step 3.
 
-
- ==3. Configure VMI==
-
-DECAF's previous version needs a guest driver to retrieve guest OS information. But with VMI, DECAF gets rid of this driver. To get VMI working, you need some manual settings for now.
-
- # Generate symbol file
- VMI needs a symbol file to work. We keep a default symbol file(/shared/utils/Symbols.db) in the source folder which is generated from windows xp version 2000 sp 3. To generate your own symbol file, you can use the script GenSymbols.sh in /shared/utils/.
-{{{
-#generate symbol file
-perl GenSymbols.sh IMAGE_PATH
-}}}
- # Copy symbol file to the current directory(presumably DECAF/i386-softmmu).
-
-
- ==4. Startup the Virtual Machine==
+ ==3. Startup the Virtual Machine==
     Now you have get everything ready, the next step is to start the emulator and run the virtual machine.
  # Go to DECAF/trunk/i386-­softmmu
  # Run the following command
@@ -67,7 +53,7 @@ perl GenSymbols.sh IMAGE_PATH
 ./qemu-­system­-i386 -­monitor stdio ­-m 512 ­-netdev user,id=mynet ­-device rtl8139,netdev=mynet “YOUR_IMAGE”
 }}}
  # If you want to use snapshot function, you can use ­snapshot option
- ==5. compile and load plugins==
+ ==4. compile and load plugins==
     DECAF provides many interfaces to trace internal events of the guest operating system. You can write your analysis plugins using these interfaces. To learn how to write plugins, [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples] is the best place to start with. Download [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples]. Take callbacktests plugin as an example.
  # compile plugins
 {{{
@@ -91,7 +77,7 @@ load_plugin XXX/callbacktests/callbacktests.so
 do_callbacktests calc.exe
 #now you can start calc.exe in the guest operating system to see the results. 
 }}}
- ==6. Troubleshooting==
+ ==5. Troubleshooting==
 This section describes some problems users have experienced when using DECAF, along with the most common causes of these problems.If you have any other questions,please post them on [http://groups.google.com/group/decaf-platform-discuss Forum]
 
  # *After start Decaf, the terminal says " vnc server running on 127.0.0.1 7 5900" and there is no running guest os shown up.*

@@ -21,7 +21,7 @@ After DECAF loads the plugin, it will call *init_plugin(void)* first. You can us
   static plugin_interface_t my_interface;
   static DECAF_Handle processbegin_handle = DECAF_NULL_HANDLE;
   
-  char targetname[511];
+  char targetname[512];
   
   /*
   * This callback is invoked when a new process starts in the guest OS.

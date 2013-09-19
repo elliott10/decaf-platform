@@ -25,6 +25,39 @@ Thus far, DroidScope has been tested on Linux Mint 14 Nadia, but it should also 
 
 === Compiling Android ===
 
+==== Ice Cream Sandwich 4.3 ====
+
+From a fresh install (I used Xubuntu 12.04.3 AMD64 in this case)
+
+Please follow the directions on the android open source project for package requirements. Here are the commands I ran (they should be the same or at least very similar).
+
+1. Get the necessary packages and set up the magical link for libGL
+
+sudo apt-get install git gnupg flex bison gperf zip curl libc6-dev libncurses5-dev:i386 x11proto-core-dev   libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386   libgl1-mesa-dev g++-multilib mingw32 tofrodos   python-markdown libxml2-utils xsltproc zlib1g-dev:i386
+
+sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/libGL.so
+
+2. Download the Java SDK from Oracle (Remember to get Java 6 as prescribed by AOSP). You can install it into the proper directories - I just unzipped the tarball and then changed my PATH and CLASSPATH to the appropriate directories.
+
+PATH=/home/lok/Downloads/jdk1.6.0_45/bin:$PATH #MAKE sure you DON'T have a / after bin, that causes lots of headaches
+CLASSPATH=~/Downloads/jdk1.6.0_45/jre/lib/:~/Downloads/jdk1.6.0_45/lib/ #not sure if I really needed to do this, but it worked with it so it can't hurt right?
+
+3. Download the Android Source. In my case I downloaded the latest and greatest (at the time)
+
+repo init -u https://android.googlesource.com/platform/manifest -b android-4.3_r2.2
+repo sync
+
+4. Build Android
+
+source build/env-setup.h
+lunch full-eng #that is the one I tested with
+make -j4 #build android
+
+5. Test Android
+
+emulator #yes.. emulator will run the just built avd
+
+==== Gingerbread ====
 One of the biggest difficulties in compiling Android in newer distributions is GCC 4.7. The following are some directions for building the Android source on Nadia
 
 From a fresh install
@@ -50,6 +83,20 @@ sudo apt-get install libglib2.0-dev libasound2-dev libpulse-dev libesd0-dev
 Once that is done, then download the patch from the downloads section and patch the source.
 
 Once patched run the configuration script (e.g. ./android-configure) and then run make to build it.
+
+==== Android 4.3.2.2 ====
+
+There are more changes to the qemu emulator in Android 4.3.2.2
+
+First. All of the changes are made to the copy of the source in external/qemu. The main reason is because android-configure.sh is written to base some include directories using relative directories and prebuilts which is nasty. I will deal with them later. So, right now we will just keep the qemu source where it is.
+
+Second. We must built DroidScope with the --try-64 option. The main reason is because DECAF (DS) requires libglib2.0-dev but unfortunately, libglib2.0-dev is a 64-bit package (we need a 64 bit host machine for AOSP) and if we tried to build a 32-bit executable (i.e., without the --try-64 option which results in the -m32 flag) we will get an error like
+
+/usr/bin/ld: cannot find -lgthread-2.0
+/usr/bin/ld: cannot find -lglib-2.0
+
+
+Then, trying to install libglib2.0-dev:i386 gives me a very serious warning. So I chose not to install it. Online forums (http://ubuntuforums.org/showthread.php?t=1998047) seem to say that you can install it, but I am too afraid of breaking the system. The list of proposed changes to the system is simply too long.
 
 === Running DroidScope ===
 

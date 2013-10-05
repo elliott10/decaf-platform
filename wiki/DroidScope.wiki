@@ -25,7 +25,7 @@ Thus far, DroidScope has been tested on Linux Mint 14 Nadia, but it should also 
 
 === Compiling Android ===
 
-==== Ice Cream Sandwich 4.3 ====
+==== Jelly Bean 4.3 ====
 
 From a fresh install (I used Xubuntu 12.04.3 AMD64 in this case)
 

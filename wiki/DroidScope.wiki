@@ -64,7 +64,7 @@ From a fresh install
 
 First – Install the necessary packages:
 
-sudo apt-get install git-core gnupg flex bison gperf dpkg-dev gcc-multilib build-essential   zip curl libc6-dev libncurses5-dev:i386 x11proto-core-dev   libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386   libgl1-mesa-dev g++-multilib mingw32 openjdk-6-jdk tofrodos   python-markdown libxml2-utils xsltproc zlib1g-dev:i386 libgl-dev
+sudo apt-get install git-core gnupg flex bison gperf dpkg-dev gcc-multilib build-essential   zip curl libc6-dev libncurses5-dev:i386 x11proto-core-dev   libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386   libgl1-mesa-dev g++ g++-multilib mingw32 openjdk-6-jdk tofrodos   python-markdown libxml2-utils xsltproc zlib1g-dev zlib1g-dev:i386 libgl-dev
 
 Second – Grab the source (http://source.android.com/source/downloading.html)
 
@@ -78,7 +78,7 @@ Fifth – Build the source according to the directions (http://source.android.co
 
 DroidScope is integrated DIRECTLY into the android emulator source in "external/qemu" and we build DroidScope in the qemu directory directly. In order to build qemu as a standalone we must first install some more packages. 
 
-sudo apt-get install libglib2.0-dev libasound2-dev libpulse-dev libesd0-dev
+sudo apt-get install libglib2.0-dev libasound2-dev libpulse-dev libesd0-dev binutils-dev binutils-multiarch
 
 Once that is done, then download the patch from the downloads section and patch the source.
 

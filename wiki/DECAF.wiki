@@ -1,12 +1,7 @@
 =1. Introduction=
 
 DECAF(Dynamic Executable Code Analysis Framework) is the successor to the binary analysis techniques developed for TEMU ( dynamic analysis component of [http://bitblaze.cs.berkeley.edu/ BitBlaze] ) as part of [http://lcs.syr.edu/faculty/yin/ Heng Yin]'s work on [http://bitblaze.cs.berkeley.edu/ BitBlaze] project headed up by [http://www.cs.berkeley.edu/~dawnsong/ Dawn Song]. DECAF builds upon TEMU. We appreciate all that worked with us on that project.
-
-DECAF is a multi-target binary analysis platform, but it is easier to think of it as a platform for target-independent binary analysis. The core idea is to abstract away the details of different targets, (e.g. the program counter register in x86 [EIP] contains the virtual address of the current instruction being executed while the same register in ARM [PC] points to the next instruction) so that the analyst can focus on doing important work (analyzing) (e.g. in DECAF there is one function DECAF_getCurPC that returns the address of the instruction being executed and target specific functions to obtain the register values). 
-
-In this way all you (the analyst) have to do is register for different events, such as "block begin" or "instruction begin" or "system call", and we will deal with making the changes to the different targets of the QEMU Processor Emulator so that you get those events at the appropriate times. You can then write target-independent plugins such as API tracer or target-dependent plugins such as X86InstructionTracer and ARMInstructionTracer.
-
-Following a similar philosophy, DECAF also provides multiple virtual machine introspection facilities so that no matter if the guest machine is Windows or Linux, the analyst will still be able to readily obtain a shadow process list, among other things.
+[http://sycurelab.ecs.syr.edu/image/overall_decaf.jpg DECAF]
 
 =2. [http://code.google.com/p/decaf-platform/wiki/build_conf Startup]=
 =3. [https://code.google.com/p/decaf-platform/wiki/decaf_plugins Tutorials]=

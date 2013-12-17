@@ -9,7 +9,7 @@ In this way all you (the analyst) have to do is register for different events, s
 Following a similar philosophy, DECAF also provides multiple virtual machine introspection facilities so that no matter if the guest machine is Windows or Linux, the analyst will still be able to readily obtain a shadow process list, among other things.
 
 =2. [http://code.google.com/p/decaf-platform/wiki/build_conf Startup]=
-=3. [https://code.google.com/p/decaf-platform/wiki/decaf_plugins Tutorials on developing plugins]=
+=3. [https://code.google.com/p/decaf-platform/wiki/decaf_plugins Tutorials]=
 =4. [https://code.google.com/p/decaf-platform/wiki/plugin_sample Plugin Demo]=
 =5. [https://code.google.com/p/decaf-platform/wiki/decaf_interfaces DECAF interfaces]=
 

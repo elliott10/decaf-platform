@@ -15,20 +15,27 @@ sudo apt-get install binutils-dev
  # Configure&Make
 DECAF has two basic settings. One is TCG tainting, another one is VMI. You can enable/disable at the configuration step. By default, VMI is enabled and TCG tainting is disabled. 
 {{{
-#go to the root directory of DECAF's source file.
+#go to the root directory of DECAF's source folder.
 ./configure
 make
 }}}
 
 Enable TCG tainting
 {{{
-#go to the root directory of DECAF's source file.
+#go to the root directory of DECAF's source folder.
 ./configure --enable-tcg-taint
 make
 }}}
-Disable VMI
+Enable TCG IR logging
 {{{
-#go to the root directory of DECAF's source file.
+#go to the root directory of DECAF's source folder
+./configure --enable-tcg-ir-log
+make
+}}}
+Disable VMI
+VMI is enabled by default. If you disable it, DECAF cannot retrieve os-level semantics although you have guest driver installed because we have removed the support for guest driver(TEMU does VMI this way).
+{{{
+#go to the root directory of DECAF's source folder.
 ./configure --disable-vmi
 make
 }}}

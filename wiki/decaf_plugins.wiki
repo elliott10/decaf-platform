@@ -103,7 +103,7 @@ After DECAF loads the plugin, it will call *init_plugin(void)* first. You can us
 
 Now,you know the *plugin_cleanup* and *mon_cmds*. Let's talk about the sample plugin code. As you see, in the function *init_plugin(void)*, we define our own command using *my_term_cmds*. In *my_term_cmds*, we specify the command name,command handler,command parameters and help message. You can define whatever you like following this convention. The *plugin_cleanup* is also defined by *my_cleanup*. Using *my_cleanup*, DECAF cleanup all the resources used by the plugin.
 
-In *my_init()*, we register  *PROCMOD_PROCESSBEGIN_CB* callback and its handler *my_loadmainmodule_callback*. So when a process starts, DECAF will call *my_loadmainmodule_callback*. And from its parameters, you can get the pid,name and cr3 of the process. So you can check if it's the process you specified with monitor_proc command. If so, we print out the process name. Of course, we can do many other things.For example, we can register *DECAF_INSN_BEGIN_CB* callback and its handler at this place. And in its handler, we check if it belongs to the specified process and print out the instruction's EIP shown as following code.
+In *my_init()*, we register  *VMI_CREATEPROC_CB* callback and its handler *my_loadmainmodule_callback*. So when a process starts, DECAF will call *my_loadmainmodule_callback*. And from its parameters, you can get the pid,name and cr3 of the process. So you can check if it's the process you specified with monitor_proc command. If so, we print out the process name. Of course, we can do many other things.For example, we can register *DECAF_INSN_BEGIN_CB* callback and its handler at this place. And in its handler, we check if it belongs to the specified process and print out the instruction's EIP using the following code.
 {{{
   uint32_t target_cr3;
   static void my_insn_begin_callback(DECAF_Callback_Params* params)
@@ -116,11 +116,11 @@ In *my_init()*, we register  *PROCMOD_PROCESSBEGIN_CB* callback and its handler 
   /*
   * This callback is invoked when a new process starts in the guest OS.
   */
-  static void my_loadmainmodule_callback(procmod_Callback_Params* params)
+  static void my_loadmainmodule_callback(VMI_Callback_Params* params)
   {
-    if(strcmp(params->lmm.name,targetname)==0){
-  	  DECAF_printf("Process %s you spcecified starts \n",params->lmm.name);
-    target_cr3=params->lmm.cr3;  
+    if(strcmp(params->cp.name,targetname)==0){
+  	  DECAF_printf("Process %s you spcecified starts \n",params->cp.name);
+    target_cr3=params->cp.cr3;  
      DECAF_register_callback(DECAF_INSN_BEGIN_CB,&my_insn_begin_callback,NULL)
     }
   }

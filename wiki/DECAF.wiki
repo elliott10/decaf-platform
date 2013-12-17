@@ -4,7 +4,6 @@ DECAF(Dynamic Executable Code Analysis Framework) is the successor to the binary
 
 
 [http://sycurelab.ecs.syr.edu/image/overall_decaf.jpg http://sycurelab.ecs.syr.edu/image/overall_decaf.jpg]
-
 *Fig 1  the overall architecture of DECAF*
 
 

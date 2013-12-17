@@ -13,7 +13,7 @@ After DECAF loads the plugin, it will call *init_plugin(void)* first. You can us
   #include "DECAF_main.h"
   #include "DECAF_callback.h"
   #include "DECAF_callback_common.h"
-  #include "shared/procmod.h"
+  #include "vmi_callback.h"
   #include "utils/Output.h"
   #include "DECAF_target.h"
   
@@ -26,10 +26,10 @@ After DECAF loads the plugin, it will call *init_plugin(void)* first. You can us
   /*
   * This callback is invoked when a new process starts in the guest OS.
   */
-  static void my_loadmainmodule_callback(procmod_Callback_Params* params)
+  static void my_loadmainmodule_callback(VMI_Callback_Params* params)
   {
-    if(strcmp(params->lmm.name,targetname)==0)
-  	  DECAF_printf("Process %s you spcecified starts \n",params->lmm.name);
+    if(strcmp(params->cp.name,targetname)==0)
+  	  DECAF_printf("Process %s you spcecified starts \n",params->cp.name);
   }
   /*
    * Handler to implement the command monitor_proc.
@@ -51,7 +51,7 @@ After DECAF loads the plugin, it will call *init_plugin(void)* first. You can us
     DECAF_printf("Hello World\n");
   
     //register for process create and process remove events  
-    processbegin_handle = procmod_register_callback(PROCMOD_PROCESSBEGIN_CB, &my_loadmainmodule_callback, NULL);
+    processbegin_handle = VMI_register_callback(VMI_CREATEPROC_CB, &my_loadmainmodule_callback, NULL);
     if (processbegin_handle == DECAF_NULL_HANDLE)
     {
       DECAF_printf("Could not register for the create or remove proc events\n");  
@@ -69,7 +69,7 @@ After DECAF loads the plugin, it will call *init_plugin(void)* first. You can us
      * Unregister for the process start and exit callbacks.
      */
     if (processbegin_handle != DECAF_NULL_HANDLE) {
-      procmod_unregister_callback(PROCMOD_PROCESSBEGIN_CB, processbegin_handle);  
+      VMI_unregister_callback(VMI_CREATEPROC_CB, processbegin_handle);  
       processbegin_handle = DECAF_NULL_HANDLE;
     }
     } 

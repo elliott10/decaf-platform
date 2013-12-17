@@ -3,7 +3,7 @@
 DECAF(Dynamic Executable Code Analysis Framework) is the successor to the binary analysis techniques developed for TEMU ( dynamic analysis component of [http://bitblaze.cs.berkeley.edu/ BitBlaze] ) as part of [http://lcs.syr.edu/faculty/yin/ Heng Yin]'s work on [http://bitblaze.cs.berkeley.edu/ BitBlaze] project headed up by [http://www.cs.berkeley.edu/~dawnsong/ Dawn Song]. DECAF builds upon TEMU. We appreciate all that worked with us on that project.
 [http://sycurelab.ecs.syr.edu/image/overall_decaf.jpg http://sycurelab.ecs.syr.edu/image/overall_decaf.jpg]
 
-*Fig 1*  the overall architecture of DECAF
+           *Fig 1*  the overall architecture of DECAF
 
 =2. [http://code.google.com/p/decaf-platform/wiki/build_conf Startup]=
 =3. [https://code.google.com/p/decaf-platform/wiki/decaf_plugins Tutorials]=

@@ -18,7 +18,7 @@ Different with TEMU, DECAF doesn’t use guest driver to retrieve os-level seman
 ==Support for Multiple Platforms==
 		 	 	 
 						
-Ideally, we would like to have the same analysis code (with minimum platform-specific code) to work for different CPU architectures (e.g, x86 and ARM) and different operating systems (e.g., Windows and Linux). It requires that the analysis framework hide the architecture and operating system specific details from the analysis plugins. Further, to make the analysis framework itself maintainable and extensible to new architectures and operat-ing systems, the platform-specific code within the framework should also be minimized. DECAF can provide support for both multiple architectures and multiple operating systems. Currently, DECAF *supports 32 bit Windows xp/Windows 7/linux   and X86/arm *.	
+Ideally, we would like to have the same analysis code (with minimum platform-specific code) to work for different CPU architectures (e.g, x86 and ARM) and different operating systems (e.g., Windows and Linux). It requires that the analysis framework hide the architecture and operating system specific details from the analysis plugins. Further, to make the analysis framework itself maintainable and extensible to new architectures and operat-ing systems, the platform-specific code within the framework should also be minimized. DECAF can provide support for both multiple architectures and multiple operating systems. Currently, DECAF *supports 32 bit Windows xp/Windows 7/linux   and X86/arm*.	
 
 
 ==Precise and Lossless Tainting==

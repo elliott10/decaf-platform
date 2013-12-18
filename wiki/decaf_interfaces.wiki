@@ -150,7 +150,8 @@ hookapi_hook_function(
 
 ==2 Utils ==
 
-  As you see in the [http://code.google.com/p/decaf-platform/wiki/decaf_plugins sample plugins], you registered a *DECAF_INSN_BEGIN_CB* callback, but what can you do in your handler *my_insn_begin_callback*? The utils interfaces is supposed to help you get more about guest os.You can find these definitions in *DECAF/shared/DECAF_main.c/h*. Now,We make a short table for these utils.
+  As you see in the [http://code.google.com/p/decaf-platform/wiki/decaf_plugins sample plugins], you registered a *DECAF_INSN_BEGIN_CB* callback, but what can you do in your handler *my_insn_begin_callback*? The utils interfaces is supposed to help you get more about guest os.You can find these definitions in *DECAF/shared/DECAF_main.c/h* or *DECAF/shared/vmi.h/vmi_c_wrapper.h". Now,We make a short table for these utils.
+
 {{{
   /*given a virtual address of guest os, get the corresponded physical address */
   gpa_t DECAF_get_phys_addr(CPUState* env, gva_t addr);

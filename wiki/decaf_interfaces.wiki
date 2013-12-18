@@ -28,28 +28,38 @@
 This callback instruments guest operating system  at instruction level.
  
    DECAF_BLOCK_BEGIN_CB : invoked at the start of the block.
+
  DECAF_BLOCK_END_CB: invoked at the end of the block.
+
  DECAF_INSN_BEGIN_CB: invoked before this instruction is executed
+
  DECAF_INSN_END_CB:invoked after this instruction is executed 
+
 
      3. *Mem read/write callback*
 it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
 
 DECAF_MEM_READ_CB :invoked when the memory read operation has been done
- DECAF_MEM_WRITE_CB:invoked when the memory write operation has been done
+
+DECAF_MEM_WRITE_CB:invoked when the memory write operation has been done
 
      4. *Keystroke callback*
 
 it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
+
 DECAF_KEYSTROKE_CB:invoked when system read a keystroke from ps2 driver.
   
      5. *EIP check callback*
- DECAF_EIP_CHECK_CB: for every function call, it will invoked this callback before it jump to target function specified by EIP. This is used to check if this EIP is tainted when you specify some taint source. If it’s tainted, it usually means  exploit happens.
+
+DECAF_EIP_CHECK_CB: for every function call, it will invoked this callback before it jump to target function specified by EIP. This is used to check if this EIP is tainted when you specify some taint source. If it’s tainted, it usually means  exploit happens.
 
      6. *network callback*
 it’s defined in  /shared/DECAF_callback_common.h:DECAF_callback_type_t
+
 DECAF_NIC_REC_CB:invoked when network card receives data.
+
 DECAF_NIC_SEND_CB:invoked when network card sends data.
+
 Currently, DECAF’s implementation of network callback is based on NE2000 network card. So, when you write plugins using network callback ,please use NE2000 network card when you start DECAF by specifying “-device ne2k_pci,netdev=mynet”.
 
 
@@ -57,15 +67,16 @@ Currently, DECAF’s implementation of network callback is based on NE2000 netwo
 ===1.2 Callback register/unregister function===
   
     To use above callback, you should firstly register callback. Before you unload your plugin, please make sure this callback is unregistered. Or it may cause unexpected crash.
-   To register/unregister process callback types, you should use the following code:
+
+   To register/unregister VMI callback types, you should use the following code:
 
    {{{
-DECAF_Handle procmod_register_callback(procmod_callback_type_t cb_type,
+DECAF_Handle VMI_register_callback(procmod_callback_type_t cb_type,
                 procmod_callback_func_t cb_func,
                 int *cb_cond
                 );
 
-int procmod_unregister_callback(procmod_callback_type_t cb_type, DECAF_Handle handle);
+int VMI_unregister_callback(procmod_callback_type_t cb_type, DECAF_Handle handle);
 }}}
 
    To register/unregister other callback types, you should use the following code:

@@ -1,13 +1,9 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-Add your content here.
 
 
-= Details =
+To demonstrate how DECAF enables and solves various binary analysis problems, we showcase three plugins.By hooking the entries and exits of APIs specified in a configuration file, API Tracer is able to trace the API invocations of a specified process and the pro- cesses spawned from it. Keylogger Detector keeps track of tainted keystrokes propagating in the OS kernel and across user-level pro- cesses to detect keyloggers. Instruction Tracer logs instructions executing within a specified context (such as a user-level process, or a kernel module). These plugins are mostly platform agnostic.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= API tracer =
+
+= Keylogger Detector=
+
+= Instruction Tracer=

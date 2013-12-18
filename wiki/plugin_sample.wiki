@@ -1,8 +1,12 @@
-
 To demonstrate how DECAF enables and solves various binary analysis problems, we showcase three plugins.By hooking the entries and exits of APIs specified in a configuration file, API Tracer is able to trace the API invocations of a specified process and the pro- cesses spawned from it. Keylogger Detector keeps track of tainted keystrokes propagating in the OS kernel and across user-level pro- cesses to detect keyloggers. Instruction Tracer logs instructions executing within a specified context (such as a user-level process, or a kernel module). These plugins are mostly platform agnostic.
 
 == API tracer ==
 
 == Keylogger Detector==
+
+ Leveraging the VMI, tainting and event-driven program- ing features of DECAF, Keylogger Detector is capable of identifying keyloggers and analyzing their stealthy behaviors. By de- sign, the core of Keylogger Detector is cross-platform and OS- independent, comprising only 120 lines of C code.
+
+By sending tainted keystrokes into the guest system and ob-serving if any untrusted code modules access the tainted data, we can detect keylogging behavior.The sample plugin can introduce tainted keystrokes into the guest system and identify which modules read the tainted keystroke by registering to receive DECAF_ READ_TAINTMEM_CB and DECAF_KEYSTROKE_CB callback events. To capture the detailed stealthy behaviors, Key- logger Detector implements a shadow call stack by registering for the DECAF_BLOCK_END callback. Whenever the callback is triggered, we check the current instruction. If it is a call instruction, we retrieve the function information using VMI and push the current program counter onto the shadow call stack. If it is a ret instruction and pairs with the entry on the top of the shadow call stack, we pop it from the stack. When the DECAF_READ_TAINTMEM_CB callback is invoked, we retrieve information about which process, module, and function read the tainted keystroke data from the function call stack.
+
 
 == Instruction Tracer==

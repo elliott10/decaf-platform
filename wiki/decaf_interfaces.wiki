@@ -248,8 +248,6 @@ extern int VMI_get_current_tid_c(CPUState* env);
 
 
 extern int VMI_get_guest_version_c(void);
-
-
 extern int VMI_list_modules(Monitor *mon, uint32_t pid);
 extern int VMI_list_processes(Monitor *mon);
 

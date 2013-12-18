@@ -194,11 +194,11 @@ static void NtCreateFile_call(void *opaque)
 			NtCreateFile_ret, ctx, sizeof(*ctx));
 }
 
-  static void my_loadmainmodule_callback(procmod_Callback_Params* params)
+  static void my_loadmainmodule_callback(VMI_Callback_Params* params)
   {
-    if(strcmp(params->lmm.name,targetname)==0){
-  	  DECAF_printf("Process %s you spcecified starts \n",params->lmm.name);
-    target_cr3=params->lmm.cr3;  
+    if(strcmp(params->cp.name,targetname)==0){
+  	  DECAF_printf("Process %s you spcecified starts \n",params->cp.name);
+    target_cr3=params->cp.cr3;  
      
   
 /// @ingroup hookapi

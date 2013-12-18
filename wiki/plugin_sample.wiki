@@ -9,7 +9,7 @@ Leveraging the VMI, tainting and event-driven programing features of DECAF, Keyl
 By sending tainted keystrokes into the guest system and observing if any untrusted code modules access the tainted data, we can detect keylogging behavior.The sample plugin can introduce tainted keystrokes into the guest system and identify which modules read the tainted keystroke by registering to receive DECAF_ READ_TAINTMEM_CB and DECAF_KEYSTROKE_CB callback events. To capture the detailed stealthy behaviors, Key- logger Detector implements a shadow call stack by registering for the DECAF_BLOCK_END callback. Whenever the callback is triggered, we check the current instruction. If it is a call instruction, we retrieve the function information using VMI and push the current program counter onto the shadow call stack. If it is a ret instruction and pairs with the entry on the top of the shadow call stack, we pop it from the stack. When the DECAF_READ_TAINTMEM_CB callback is invoked, we retrieve information about which process, module, and function read the tainted keystroke data from the function call stack.
 
 To use keylogger detector
-#compile DECAF with tcg tainting and vmi enabled.
+ # compile DECAF with tcg tainting and vmi enabled.
 {{{
 ./configure --enable-tcg-taint --enable-vmi
 make

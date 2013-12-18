@@ -1,6 +1,6 @@
 =Interfaces=
   
-  DECAF provides many interfaces to make instrumentation easier. There are two kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memmory from guest OS. 
+  DECAF provides many event-driven interfaces to make instrumentation easier. There are two kinds of interfaces.The first is callback for you to insert instrumentation code at specific event. Another set of interfaces is used as utils to get information of guest os or read memory from guest OS. 
 
 ==1 Callback interfaces==
 
@@ -8,19 +8,17 @@
 
 ===1.1 Callback types===
 
-     1. *Process callback*
-     it’s defined in /shared/procmod.h:procmod_callback_type_t
-  PROCMOD_CREATEPROC_CB:  invoked when eprocess structure is created 
+     1. *VMI callback*
+     it’s defined in /shared/vmi_callback.h:VMI_callback_type_t
+  VMI_CREATEPROC_CB:  invoked when eprocess structure is created 
 
-  PROCMOD_REMOVEPROC_CB:  invoked when delete the process
+  VMI_REMOVEPROC_CB:  invoked when delete the process
 
-  PROCMOD_PROCESSEND_CB : alias of PROCMOD_REMOVEPROC_CB
+  VMI_LOADMODULE_CB: invoked when dll or driver is loaded
 
-  PROCMOD_LOADMODULE_CB: invoked when dll or driver is loaded
+  VMI_LOADMAINMODULE_CB: invoked when process starts to run
 
-  PROCMOD_LOADMAINMODULE_CB: invoked when process starts to run
-
-  PROCMOD_PROCESSBEGIN_CB: alias of PROCMOD_LOADMAINMODULE_CB
+  VMI_PROCESSBEGIN_CB: alias of VMI_LOADMAINMODULE_CB
 
 
      

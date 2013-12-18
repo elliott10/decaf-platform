@@ -1,6 +1,6 @@
 =Startup=
       This part is a quick start guide for setting up and running DECAF, the binary analysis platform based on [http://wiki.qemu.org/Main_Page QEMU]. It assumes that you have some familiarity with Linux. The instructions are based on the release of DECAF shown in the [http://code.google.com/p/decaf-platform/source/checkout svn] or the [http://code.google.com/p/decaf-platform/downloads/detail?name=DECAF.tar.gz#makechanges downloads page], running on a Ubuntu 12.04 distribution of Linux. We intermix instructions with explanations about utilities to give an overview of how things work.
-     We also provide *[http://sycurelab.ecs.syr.edu/image/decaf.tar.gz a Virtual Box image]* which has DECAF installed. You can use it directly. But you still need to create your own qemu VM.
+   
  ==1. Compile==
  # DECAF is based on QEMU. It's useful to have a vanilla QEMU for testing and image development. Also, you need to install some stuff to compile qemu/decaf.
 {{{

@@ -1,6 +1,43 @@
 To demonstrate how DECAF enables and solves various binary analysis problems, we showcase three plugins.By hooking the entries and exits of APIs specified in a configuration file, API Tracer is able to trace the API invocations of a specified process and the pro- cesses spawned from it. Keylogger Detector keeps track of tainted keystrokes propagating in the OS kernel and across user-level pro- cesses to detect keyloggers. Instruction Tracer logs instructions executing within a specified context (such as a user-level process, or a kernel module). These plugins are mostly platform agnostic.
 
 == API tracer ==
+API tracer is a simple plugin that given a configuration file containing a list of APIs and their arguments, monitors the execution of a program and prints the execution of such APIs to a trace file. 
+
+To use apitracer:
+ # compile DECAF with vmi enabled. 
+{{{
+./configure --enable-vmi
+make
+
+}}}
+ # compile the apitracer plugin.
+{{{
+ # cd to the plugin's source folder
+./configure --decaf-path=root directory of DECAF
+make
+
+}}}
+ # use DECAF to start guest OS and load apitracer plugin.
+{{{
+
+ # start virtual machine, change directory to (root directory of decaf)/i386-softmmu/
+ ./qemu-­system­-i386 -­monitor stdio -­m 512 ­-netdev user,id=mynet -­device rtl8139,netdev=mynet “YOUR_IMAGE”
+ # load plugins
+load_plugin path/to/apitracer/plugin/apitracer.so
+
+}}}
+ # Set the program to trace.
+{{{
+ # A sample config file is included in the apitracer folder.
+trace_by_name <program_name> <out_trace_file_path> <in_config_file_path>
+
+}}}
+ # Inside the VM, start the program to be traced.
+ # To stop tracing,
+{{{
+trace_stop
+
+}}}
 
 == Keylogger Detector==
 

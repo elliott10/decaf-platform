@@ -50,7 +50,7 @@ qemu-img convert win2kpro.vmdk -O qcow win2kpro.img
 VBoxManage clonehd --format RAW img.vdi img.raw
 qemu-img convert -f raw ubuntu.img -O qcow2 ubuntu.qcow
 }}}
- # With the new VMI support, guest driver is no longer needed by DECAF.Image created from vmware/virtualbox may not work for the new VMI. SO it's better to create an image from install file or have vmware/virtualbox drivers uninstalled before converted to qemu image. If the VMI doesn't work, please see discussion. 
+ # With the new VMI support, guest driver is no longer needed by DECAF.Image created from vmware/virtualbox may not work for the new VMI. SO it's better to create an image from install file or have vmware/virtualbox drivers uninstalled before converted to qemu image. If the VMI doesn't work, please see [https://groups.google.com/forum/#!topic/decaf-platform-discuss/SK6-HdMf6Dg discussion]. 
 
  ==3. Startup the Virtual Machine==
     Now you have get everything ready, the next step is to start the emulator and run the virtual machine.

@@ -53,16 +53,7 @@
   }}}
  # With the new VMI support, guest driver is no longer needed by DECAF.Image created from vmware/virtualbox may not work for the new VMI. SO it's better to create an image from install file or have vmware/virtualbox drivers uninstalled before converted to qemu image. If the VMI doesn't work, please see [https://groups.google.com/forum/#!topic/decaf-platform-discuss/SK6-HdMf6Dg discussion]. 
 
-==3. Startup the Virtual Machine==
- Now you have get everything ready, the next step is to start the emulator and run the virtual machine.
- # Go to DECAF/trunk/i386-­softmmu
- # Run the following command
-  {{{
-  ./qemu-­system­-i386 -­monitor stdio ­-m 512 ­-netdev user,id=mynet ­-device rtl8139,netdev=mynet “YOUR_IMAGE”
-  }}}
- # If you want to use snapshot function, you can use ­snapshot option
-
-==4. VMI configuration for Linux==
+==3. VMI configuration for Linux==
  The configuration is for Linux only. There is no extra configuration for Windows.
  # Compile and insert kernel module
   Copy procinfo.c and Makefile under `[decaf_path]/shared/kernelinfo/procinfo_generic/` into some directory in the guest OS.
@@ -108,6 +99,15 @@
   {{{
   objdump -T $1 | awk '/\.text/ && $6 !~ /\(.*\)/ {printf("%-30s= %d\n",$7,"0x"$1)}'
   }}}
+
+==4. Startup the Virtual Machine==
+ Now you have get everything ready, the next step is to start the emulator and run the virtual machine.
+ # Go to DECAF/trunk/i386-­softmmu
+ # Run the following command
+  {{{
+  ./qemu-­system­-i386 -­monitor stdio ­-m 512 ­-netdev user,id=mynet ­-device rtl8139,netdev=mynet “YOUR_IMAGE”
+  }}}
+ # If you want to use snapshot function, you can use ­snapshot option
 
 ==5. compile and load plugins==
  DECAF provides many interfaces to trace internal events of the guest operating system. You can write your analysis plugins using these interfaces. To learn how to write plugins, [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples] is the best place to start with. Download [http://code.google.com/p/decaf-platform/downloads/detail?name=decaf_plugins.tar.gz#makechanges  plugin samples]. Take callbacktests plugin as an example.

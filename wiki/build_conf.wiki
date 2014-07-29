@@ -95,9 +95,9 @@
   To hook library functions, you need to configure the offsets. For each guest OS, there is a library configuration file for it in `[decaf_path]/shared/kernelinfo/procinfo_generic/lib_conf/]`. The file name of the configuration file is `[strName].ini`. In a library configuration file, there is a section for each shared library file. In each section, there is a decaf_conf_libpath field for the shared library file name. decaf_conf_libpath is the file name, don't include any path. <br> <br>
   <b>decaf_conf_libpath = libc-2.13.so</b> <br>
   ~~decaf_conf_libpath = /usr/lib/libc-2.13.so~~ <br> <br>
-  For each function, there is also a filed. The field name is the name of the function. The field value is the offset. The field name and value can be obtainted using the following command. You may need to adjust the command according to your environment.
+  For each function, there is also a filed. The field name is the name of the function. The field value is the offset. The field name and value can be obtainted using the following command in guest OS. You may need to adjust the command according to your environment.
   {{{
-  objdump -T $1 | awk '/\.text/ && $6 !~ /\(.*\)/ {printf("%-30s= %d\n",$7,"0x"$1)}'
+  objdump -T [path_of_shared_library_in_guest_OS] | awk '/\.text/ && $6 !~ /\(.*\)/ {printf("%-30s= %d\n",$7,"0x"$1)}'
   }}}
 
 ==4. Startup the Virtual Machine==
